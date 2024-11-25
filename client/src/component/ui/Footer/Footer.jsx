@@ -8,9 +8,9 @@ import Icon from "../Icon/Icon";
 const Footer = () => {
   return (
     <>
-      <div className="mt-10 bg-primary/5 py-10">
+      <div className=" bg-primary/5 py-10">
         <Container>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 lg:gap-10 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 lg:gap-10 pt-10 gap-8">
             <div>
               <picture>
                 <img
