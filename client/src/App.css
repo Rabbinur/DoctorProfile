@@ -1,0 +1,16 @@
+
+/* Top to bottom  */
+
+.animation {
+  animation: slideUp 1s ease forwards infinite;
+}
+@keyframes slideUp {
+  0% {
+    top: 10px;
+  }
+  100% {
+    top: 20px;
+  }
+}
+
+/* top to bottom end */
