@@ -1,12 +1,20 @@
 
+import Appoinment from '../../component/Appoinment/Appoinment';
 import Banner from '../../component/Banner/Banner';
+import ContactUs from '../../component/ContactUs/ContactUs';
 import DoctorProfile from '../../component/DoctorProfile/DoctorProfile';
+import Services from '../../component/services/Services';
+import Testomonial from '../../component/Testomonial/Testomonial';
 
 const Home = () => {
     return (
         <div>
-           <Banner></Banner>
+           <Banner/>
            <DoctorProfile/>
+           <Services/>
+           <Testomonial/>
+           <Appoinment/> 
+           <ContactUs/>
         </div>
     );
 };

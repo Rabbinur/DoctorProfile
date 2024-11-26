@@ -7,11 +7,19 @@ import { PiInstagramLogoThin } from "react-icons/pi";
 import { CiTwitter } from "react-icons/ci";
 import { TbWorld } from "react-icons/tb";
 import { GoArrowUp } from "react-icons/go";
+import { GrMapLocation } from "react-icons/gr";
+import { AiOutlineMail } from "react-icons/ai";
+import { MdOutlinePhone } from "react-icons/md";
+
+
 
 const iconMap = {
   search: CiSearch,
   heart: CiHeart,
   user: CiUser,
+  email:AiOutlineMail,
+  phone:MdOutlinePhone,
+  map:GrMapLocation,
   cart: CiShoppingCart,
   close: IoCloseCircleOutline,
   FaFacebookF: FaFacebookF,
