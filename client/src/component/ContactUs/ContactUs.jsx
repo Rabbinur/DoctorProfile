@@ -11,8 +11,9 @@ const ContactUs = () => {
       </div>
       <Container>
         <div
-          className="grid grid-cols-1 pt-20 sm:grid-cols-3 
-        lg:gap-8 gap-3 py-10 lg:pt-10"
+          className="grid grid-cols-1 pt-20 lg:mt-10
+           sm:grid-cols-3 
+        lg:gap-8 gap-5 py-10 lg:pt-10"
         >
           <div
             className="text-center bg-white 
@@ -60,7 +61,7 @@ const ContactUs = () => {
             <p className="text-gray-500 text-sm">+90-39-49-880</p>
           </div>
         </div>
-        <div>
+        <div className="pt-10">
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3650.058590761713!2d90.35288757402913!3d23.81651548623738!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c118ad4293b3%3A0x35cecf1a30eee4!2s21%20Rupnagar%20Rd%2C%20Dhaka%201216!5e0!3m2!1sen!2sbd!4v1732646315465!5m2!1sen!2sbd"
             width={`100%`}
