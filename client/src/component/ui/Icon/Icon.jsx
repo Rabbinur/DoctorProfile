@@ -10,6 +10,7 @@ import { GoArrowUp } from "react-icons/go";
 import { GrMapLocation } from "react-icons/gr";
 import { AiOutlineMail } from "react-icons/ai";
 import { MdOutlinePhone } from "react-icons/md";
+import { IoIosArrowRoundDown } from "react-icons/io";
 
 
 
@@ -17,6 +18,7 @@ const iconMap = {
   search: CiSearch,
   heart: CiHeart,
   user: CiUser,
+  down:IoIosArrowRoundDown,
   email:AiOutlineMail,
   phone:MdOutlinePhone,
   map:GrMapLocation,

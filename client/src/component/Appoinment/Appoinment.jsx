@@ -2,6 +2,11 @@ import React from "react";
 import Container from "../ui/Container/Container";
 import Title from "../ui/Title/Title";
 import img1 from "../../assets/pls-40.jpg";
+import BookingCalendar from "../BookingCalendar/BookingCalendar";
+import CustomCalendar from "../BookingCalendar/BookingCalendar";
+import CalendarWithSlots from "../BookingCalendar/BookingCalendar";
+import FullCalendar from "../BookingCalendar/BookingCalendar";
+import Calendar from "../BookingCalendar/BookingCalendar";
 const Appoinment = () => {
   return (
     <div>
@@ -25,6 +30,11 @@ const Appoinment = () => {
               <li>SUN ... 11.00 - 03.00 pm</li>
             </ul>
           </div>
+        </div>
+        <div>
+            {/* <FullCalendar /> */}
+            <Calendar />
+        
         </div>
       </Container>
     </div>
