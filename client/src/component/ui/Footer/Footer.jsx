@@ -78,7 +78,7 @@ const Footer = () => {
                     to="/shop"
                     className="hover:pl-3 duration-500 hover:text-primary"
                   >
-                    shop
+                    Blogs
                   </Link>
                 </li>
                 <li className="text-gray text-sm lg:text-base capitalize font-medium ">
@@ -86,7 +86,7 @@ const Footer = () => {
                     to="/feature"
                     className="hover:pl-3 duration-500 hover:text-primary"
                   >
-                    feature
+                 Appointment
                   </Link>
                 </li>
               </ul>
@@ -101,7 +101,7 @@ const Footer = () => {
                     to="/"
                     className="hover:pl-3 duration-500 hover:text-primary"
                   >
-                    home
+                  Contact 
                   </Link>
                 </li>
                 <li className="text-gray text-sm lg:text-base capitalize font-medium ">
@@ -109,7 +109,7 @@ const Footer = () => {
                     to="/"
                     className="hover:pl-3 duration-500 hover:text-primary"
                   >
-                    about
+                    Reviews
                   </Link>
                 </li>
                 <li className="text-gray text-sm lg:text-base capitalize font-medium ">
@@ -117,55 +117,49 @@ const Footer = () => {
                     to="/"
                     className="hover:pl-3 duration-500 hover:text-primary"
                   >
-                    shop
+                 Services 
                   </Link>
                 </li>
-                <li className="text-gray text-sm lg:text-base capitalize font-medium ">
-                  <Link
-                    to="/"
-                    className="hover:pl-3 duration-500 hover:text-primary"
-                  >
-                    feature
-                  </Link>
-                </li>
+            
               </ul>
             </div>
             <div>
               <h2 className="md:text-xl text-base font-medium text-center md:text-left">
-                Categories
+                Contact Information
               </h2>
               <ul className="lg:pt-5 pt-2 flex flex-col gap-2 text-center md:text-left">
                 <li className="text-gray text-sm lg:text-base capitalize font-medium ">
-                  <Link
-                    to="/"
-                    className="hover:pl-3 duration-500 hover:text-primary"
+                  <span
+                    
+                    className="hover:pl-3 font-bold duration-500 hover:text-primary"
                   >
-                    home
-                  </Link>
+                    Chamber address
+                  </span>
                 </li>
                 <li className="text-gray text-sm lg:text-base capitalize font-medium ">
-                  <Link
-                    to="/"
+                  <span
+                 
                     className="hover:pl-3 duration-500 hover:text-primary"
                   >
-                    about
-                  </Link>
+                Road-2, Mirpur-2, Dhaka
+                  </span>
                 </li>
                 <li className="text-gray text-sm lg:text-base capitalize font-medium ">
-                  <Link
-                    to="/"
+                  <span
+                   
                     className="hover:pl-3 duration-500 hover:text-primary"
                   >
-                    shop
-                  </Link>
+                   Email:      contact@gmail.com
+                  </span>
                 </li>
+               
                 <li className="text-gray text-sm lg:text-base capitalize font-medium ">
-                  <Link
-                    to="/"
+                  <span
+                   
                     className="hover:pl-3 duration-500 hover:text-primary"
                   >
-                    feature
-                  </Link>
+                 Mobile: 016xxxxxx
+                  </span>
                 </li>
               </ul>
             </div>
