@@ -14,3 +14,6 @@
 }
 
 /* top to bottom end */
+html {
+  scroll-behavior: smooth;
+}

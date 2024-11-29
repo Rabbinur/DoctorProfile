@@ -4,7 +4,7 @@ import Container from "../ui/Container/Container";
 import profile from "../../assets/doctorimage.webp";
 const DoctorProfile = () => {
   return (
-    <div className="py-20">
+    <div id="about" className="py-20">
       <Container>
         <Title> Who Am I ? </Title>
 

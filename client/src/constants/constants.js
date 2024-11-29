@@ -1,20 +1,28 @@
 export const header = [
   {
     keys: "Home",
-    to: "/",
+    to: "#home",
   },
   {
     keys: "about",
-    to: "/about",
+    to: "#about",
   },
 
   {
+    keys: "services",
+    to: "#services",
+  },
+  {
+    keys: "reviews",
+    to: "#reviews",
+  },
+  {
     keys: "blog",
-    to: "/blog",
+    to: "#blog",
   },
   {
     keys: "contact",
-    to: "/contact",
+    to: "#contact",
   },
   // {
   //     "keys": "appointment",

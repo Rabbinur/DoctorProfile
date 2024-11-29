@@ -12,22 +12,43 @@ import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { fetchAllBanner } from "../../hooks/usefetch";
 import bannerImg from "../../assets/slider3.jpg";
+import { Link, NavLink } from "react-router-dom";
 const Banner = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleSlideChange = (swiper) => {
     setCurrentIndex(swiper.activeIndex); // Update the current slide index on slide change
   };
-  const { data, isLoading, error } = useQuery({
-    queryKey: ["banners"],
-    queryFn: fetchAllBanner,
-  });
-
-  const banners = data?.data || [];
+  // const { data, isLoading, error } = useQuery({
+  //   queryKey: ["banners"],
+  //   queryFn: fetchAllBanner,
+  // });
+  const data = [
+    {
+      title: "Search for Best Sergeon",
+      description:
+        "HealSoul Health Services provide patients with choices to ask for the conducting",
+      position: "banner",
+    },
+    {
+      title: "Search for Best Sergeon",
+      description:
+        "HealSoul Health Services provide patients with choices to ask for the conducting",
+      position: "banner",
+    },
+    {
+      title: "Search for Best Sergeon",
+      description:
+        "HealSoul Health Services provide patients with choices to ask for the conducting",
+      position: "banner",
+    },
+  ];
+  // const banners = data?.data || [];
+  const banners = data;
   const filteredBanners = banners?.filter((item) => item.position === "banner");
 
   return (
-    <div className=" ">
+    <div id="home" className=" ">
       <div className="">
         <div className="flex items-center ">
           <Swiper
@@ -53,9 +74,8 @@ const Banner = () => {
                 >
                   <div className="relative ">
                     <img
-                      src={bannerItem?.imageUrl || bannerImg} // Dynamically use image URL
+                      src={bannerItem?.imageUrl || bannerImg} 
                       alt={bannerItem?.title || "Banner Image"}
-                  
                       className="w-full h-[55vh] lg:h-[80vh] z-20 group-hover:scale-105 duration-300 
                       object-cover object -center"
                     />
@@ -70,24 +90,30 @@ const Banner = () => {
                       viewport={true}
                       className="absolute inset-0 flex flex-col justify-center px-5 md:px-0 items-center w-full h-full z-20"
                     >
-                      <div className="lg:text-[48px] md:text-[40px]  text-[36px] text-center
-                       md:text-start duration-300 group-hover:text-primary text-[#3e516a]">
+                      <div
+                        className="lg:text-[48px] md:text-[40px]  text-[30px] text-center
+                       md:text-start duration-300 group-hover:text-primary
+                        text-[#3e516a]"
+                      >
                         <h1>{bannerItem.title || "Default Title"}</h1>
                       </div>
-                      <p className="text-md py-5 text-justify text-black font-medium">
+                      <p className=" text-[15px] lg:text-md py-5 text-justify text-black font-medium">
                         {bannerItem.description ||
                           "Lorem ipsum dolor sit amet, consectetur adipisicing elit."}
                       </p>
                       <div className="flex justify-center md:justify-start">
-                        <button className="bg-primary hover:bg-black
+                        <NavLink 
+                          to="#appointment"
+                          className="bg-primary hover:bg-black  
                          text-white rounded-md flex justify-center items-center
-                          gap-2 px-10 py-3 font-bold mt-10 duration-300">
-                         Appointment 
+                          gap-2 px-5 py-3 font-bold mt-10 duration-300"
+                        >
+                          Appointment
                           <HiOutlineArrowSmallRight
                             size={25}
                             className="group-hover:translate-x-1 duration-300"
                           />
-                        </button>
+                        </NavLink>
                       </div>
                     </motion.div>
                   </div>
@@ -95,9 +121,11 @@ const Banner = () => {
               </SwiperSlide>
             ))}
 
-            <div className="button-next-slide top-[40%] absolute z-10 w-[40px] h-[40px]
+            <div
+              className="button-next-slide top-[40%] absolute z-10 w-[40px] h-[40px]
              bg-black group-hover:left-0 -left-[500px] duration-300
-              cursor-pointer text-white grid place-items-center">
+              cursor-pointer text-white grid place-items-center"
+            >
               <FaArrowRight />
             </div>
             <div className="button-prev-slide top-[40%] absolute z-10 w-[40px] h-[40px] bg-black group-hover:right-0 -right-[500px] duration-300 cursor-pointer text-white grid place-items-center">

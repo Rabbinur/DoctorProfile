@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 const Services = () => {
   return (
-    <div className="py-10 bg-[#f1f6f9]">
+    <div id="services" className="py-20 bg-[#f1f6f9]">
       <Container>
         <div className="pb-10">
           <Title>Services Offered</Title>

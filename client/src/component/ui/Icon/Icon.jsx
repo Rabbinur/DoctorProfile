@@ -11,7 +11,7 @@ import { GrMapLocation } from "react-icons/gr";
 import { AiOutlineMail } from "react-icons/ai";
 import { MdOutlinePhone } from "react-icons/md";
 import { IoIosArrowRoundDown } from "react-icons/io";
-
+import { IoIosStarOutline } from "react-icons/io";
 
 
 const iconMap = {
@@ -29,9 +29,10 @@ const iconMap = {
   CiTwitter: CiTwitter,
   TbWorld: TbWorld,
   uparrow: GoArrowUp,
+  star:IoIosStarOutline
 };
 
-const Icon = React.memo(({ type, className = "", size = 24 }) => {
+const Icon = React.memo(({ type, className = "", size = "" }) => {
   const IconComponent = iconMap[type];
   return IconComponent ? <IconComponent className={className} size={size} /> : null;
 });

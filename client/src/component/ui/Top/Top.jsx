@@ -31,11 +31,12 @@ const Top = () => {
     <>
       {isVisible && (
         <div
-          className="fixed bottom-[10%] right-[1%] border size-10 rounded-full flex justify-center items-center transition-opacity duration-500 ease-in-out opacity-100 hover:opacity-80 cursor-pointer animation"
+          className="fixed bottom-[10%] z-[9999] right-[1%] 
+          border size-10 rounded-full flex justify-center bg-primary items-center transition-opacity duration-500 ease-in-out opacity-100 hover:opacity-80 cursor-pointer animation"
           onClick={handleTopBottom}
           style={{ animation: "fadeIn 0.5s ease-in-out" }}
         >
-          <Icon type="uparrow" className="text-primary" />
+          <Icon type="uparrow" className="text-white font-bold text-[18px]" />
         </div>
       )}
     </>

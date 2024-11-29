@@ -5,7 +5,7 @@ import Title from "../ui/Title/Title";
 
 const ContactUs = () => {
   return (
-    <div className="py-10">
+    <div id="contact" className="py-10">
       <div>
         <Title>Contact With Me</Title>
       </div>

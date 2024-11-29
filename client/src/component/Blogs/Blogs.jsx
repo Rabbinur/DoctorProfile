@@ -3,7 +3,7 @@ import Title from "../ui/Title/Title";
 
 const Blogs = () => {
   return (
-    <div>
+    <div id="blog">
       <section className="pt-20 pb-10 lg:pt-[120px] lg:pb-20 bg-white dark:bg-dark">
         <div className="container mx-auto px-5">
           <div className="flex flex-wrap justify-center -mx-4">

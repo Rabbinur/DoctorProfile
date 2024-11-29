@@ -1,7 +1,7 @@
 import React from "react";
 
 import logo from "../../../assets/logo.png";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import Container from "../Container/Container";
 import Icon from "../Icon/Icon";
@@ -25,30 +25,30 @@ const Footer = () => {
               </p>
               <ul className="flex md:justify-start justify-center items-center gap-5">
                 <li className="bg-primary/10 hover:scale-105 duration-500 lg:w-[50px] w-[30px] lg:h-[50px] h-[30px] flex justify-center items-center rounded-full">
-                  <Link>
+                  <NavLink>
                     <Icon
                       type="FaFacebookF"
                       className=" lg:text-2xl text-xl "
                     />
-                  </Link>
+                  </NavLink>
                 </li>
                 <li className="bg-primary/10 hover:scale-105 duration-500 lg:w-[50px] w-[30px] lg:h-[50px] h-[30px] flex justify-center items-center rounded-full">
-                  <Link>
+                  <NavLink>
                     <Icon
                       type="PiInstagramLogoThin"
                       className=" lg:text-2xl text-xl "
                     />
-                  </Link>
+                  </NavLink>
                 </li>
                 <li className="bg-primary/10 hover:scale-105 duration-500 lg:w-[50px] w-[30px] lg:h-[50px] h-[30px] flex justify-center items-center rounded-full">
-                  <Link>
+                  <NavLink>
                     <Icon type="CiTwitter" className=" lg:text-2xl text-xl " />
-                  </Link>
+                  </NavLink>
                 </li>
                 <li className="bg-primary/10 hover:scale-105 duration-500 lg:w-[50px] w-[30px] lg:h-[50px] h-[30px] flex justify-center items-center rounded-full">
-                  <Link>
+                  <NavLink>
                     <Icon type="TbWorld" className=" lg:text-2xl text-xl" />
-                  </Link>
+                  </NavLink>
                 </li>
               </ul>
             </div>
@@ -58,36 +58,36 @@ const Footer = () => {
               </h2>
               <ul className="lg:pt-5 pt-2 flex flex-col gap-2 text-center md:text-left">
                 <li className="text-gray text-sm lg:text-base capitalize font-medium ">
-                  <Link
-                    to="/"
+                  <NavLink
+                    to="#home"
                     className="hover:pl-3 duration-500 hover:text-primary"
                   >
                     home
-                  </Link>
+                  </NavLink>
                 </li>
                 <li className="text-gray text-sm lg:text-base capitalize font-medium ">
-                  <Link
-                    to="/about"
+                  <NavLink
+                    to="#about"
                     className="hover:pl-3 duration-500 hover:text-primary"
                   >
                     about
-                  </Link>
+                  </NavLink>
                 </li>
                 <li className="text-gray text-sm lg:text-base capitalize font-medium ">
-                  <Link
-                    to="/shop"
+                  <NavLink
+                    to="#blog"
                     className="hover:pl-3 duration-500 hover:text-primary"
                   >
                     Blogs
-                  </Link>
+                  </NavLink>
                 </li>
                 <li className="text-gray text-sm lg:text-base capitalize font-medium ">
-                  <Link
-                    to="/feature"
+                  <NavLink
+                    to="#appointment"
                     className="hover:pl-3 duration-500 hover:text-primary"
                   >
                  Appointment
-                  </Link>
+                  </NavLink>
                 </li>
               </ul>
             </div>
@@ -97,28 +97,28 @@ const Footer = () => {
               </h2>
               <ul className="lg:pt-5 pt-2 flex flex-col gap-2 text-center md:text-left">
                 <li className="text-gray text-sm lg:text-base capitalize font-medium ">
-                  <Link
-                    to="/"
+                  <NavLink
+                    to="#contact"
                     className="hover:pl-3 duration-500 hover:text-primary"
                   >
                   Contact 
-                  </Link>
+                  </NavLink>
                 </li>
                 <li className="text-gray text-sm lg:text-base capitalize font-medium ">
-                  <Link
-                    to="/"
+                  <NavLink
+                    to="#reviews"
                     className="hover:pl-3 duration-500 hover:text-primary"
                   >
                     Reviews
-                  </Link>
+                  </NavLink>
                 </li>
                 <li className="text-gray text-sm lg:text-base capitalize font-medium ">
-                  <Link
-                    to="/"
+                  <NavLink
+                    to="#services"
                     className="hover:pl-3 duration-500 hover:text-primary"
                   >
                  Services 
-                  </Link>
+                  </NavLink>
                 </li>
             
               </ul>
