@@ -265,9 +265,10 @@
 import { useEffect, useState } from "react";
 import logo from "../../../assets/logo.png";
 import { Link, NavLink } from "react-router-dom";
-import { header } from "../../../constants/constants";
+
 import Container from "../Container/Container";
 import Icon from "../Icon/Icon";
+import { header } from "../../../constants/constants";
 
 const Header = () => {
   const [menuShow, setmenuShow] = useState(false);
@@ -333,11 +334,14 @@ const Header = () => {
           {/* Logo */}
           <div>
             <picture>
+              <Link to="/" >
               <img
                 src={logo}
                 alt="logo"
                 className="w-full h-[60px] object-contain"
               />
+              </Link>
+              
             </picture>
           </div>
 
@@ -376,7 +380,8 @@ const Header = () => {
           {/* Appointment Button */}
           <div>
             <NavLink
-              className="border border-primary group relative px-4 py-2 font-medium text-black transition-colors duration-[400ms] hover:text-primary"
+              className="border border-primary bg-primary text-white   rounded-[5px]
+              group relative px-4 py-2 font-medium  transition-colors duration-[500ms] hover:text-black hover:border hover:bg-white"
               to="#appointment"
             >
               Appointment

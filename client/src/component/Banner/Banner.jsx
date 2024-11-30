@@ -25,19 +25,19 @@ const Banner = () => {
   // });
   const data = [
     {
-      title: "Search for Best Sergeon",
+      title: "Search for Best Surgeon",
       description:
         "HealSoul Health Services provide patients with choices to ask for the conducting",
       position: "banner",
     },
     {
-      title: "Search for Best Sergeon",
+      title: "Search for Best Surgeon",
       description:
         "HealSoul Health Services provide patients with choices to ask for the conducting",
       position: "banner",
     },
     {
-      title: "Search for Best Sergeon",
+      title: "Search for Best Surgeon",
       description:
         "HealSoul Health Services provide patients with choices to ask for the conducting",
       position: "banner",

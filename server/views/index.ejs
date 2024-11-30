@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/styles/style.css" />
+    <style>
+      .content-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 60vh;
+        background: #ededed;
+        border-radius: 10px;
+      }
+      .content {
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <%- include('partials/header') %>
+
+    <div class="content-container">
+      <div class="content">
+        <div
+          style="
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            gap: 20px;
+          "
+        >
+          <div>
+            <p style="font-size: 18px; font-weight: 700">
+              Md Rabbinur Muktar<br />
+              B.Sc. in Computer Science & Engineering (CSE)<br />
+              Full Stack Developer (MERN)
+            </p>
+            <p style="text-align: center">
+              I have experience in developing various types of web
+              applications,<br />
+              Specially I am frontend Expert and partially Backend
+
+              <br />
+              i already 30+ project completed in my industrial career.
+              <br />
+            </p>
+            <p>
+              Connect with
+              <a
+                href="https://www.linkedin.com/in/md-rabbinur-muktar-89a364232 "
+                >LinkedIn</a
+              >
+            </p>
+          </div>
+        </div>
+        <div
+          style="display: flex; flex-direction: row; justify-content: center"
+        >
+          <div>
+            <ul style="list-style: none">
+              <li>
+                <a
+                  href="https://www.linkedin.com/in/md-rabbinur-muktar-89a364232 "
+                  >LinkedIn</a
+                >
+              </li>
+
+              <li><a href="https://github.com/Rabbinur">Github</a></li>
+
+              <li>
+                <a href="mailto:rabbinur345@gmail.com">rabbinur345@gmail.com</a>
+              </li>
+              <li>Contact: +88 0168 5111 860</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <p>&copy; <%= year %>  . All rights reserved.</p>
+    </footer>
+    <!-- <%- include('partials/footer') %> -->
+  </body>
+</html>

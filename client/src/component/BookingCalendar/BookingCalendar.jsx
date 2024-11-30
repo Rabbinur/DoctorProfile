@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { format, isPast, isToday, parseISO } from "date-fns";
-import { data } from "../../constants/constants";
+
 import Formdata from "./Formdata";
 import MonthYearFIlter from "./MonthYearFIlter";
+import { data } from "../../constants/constants";
 
 const Calendar = () => {
   const today = new Date();
@@ -32,7 +33,7 @@ const Calendar = () => {
   ];
 
   // Filter data for the selected month and year
-  const currentMonthData = data.find(
+  const currentMonthData = data?.find(
     (item) => parseInt(item.month) === month + 1 && parseInt(item.year) === year
   );
 
