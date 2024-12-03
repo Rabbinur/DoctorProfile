@@ -15,13 +15,10 @@ const transporter = nodemailer.createTransport({
 
 // Function to send an email
 const sendResetEmail = async (
-  email,
-  first_name,
-  verificationLink,
-  subject,
-  body
+  emailData
 ) => {
-  console.log({ email, first_name, verificationLink, subject, body });
+  const { email, first_name, verificationLink, shcedule,subject, chamberName, body, } = emailData;
+
   const emailTemplate = `
 
 <head>
@@ -105,8 +102,10 @@ const sendResetEmail = async (
                                     <tbody>
                                       <tr>
                                         <td style="width:138px;">
-                                          <a href="https://weepoka.com" target="_blank">
-                                            <img alt="" title="" height="" src="/image/logo.png" style="border:none;border-radius:;display:block;outline:none;text-decoration:none;width:100%;height:38px;" width="138">
+                                          <a href="#"
+                                           target="_blank">
+                                            <img alt="" title=""
+                                             height="" src="../image/favicon.png" style="border:none;border-radius:;display:block;outline:none;text-decoration:none;width:100%;height:38px;" width="138">
                                           </a>
                                         </td>
                                       </tr>
@@ -142,7 +141,7 @@ const sendResetEmail = async (
                               <tr>
                                 <td style="vertical-align:undefined;width:640px;">
                                   <div style="cursor:auto;color:white;font-family:Whitney, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif;font-size:36px;font-weight:600;line-height:36px;text-align:center;">
-                                    Welcome to Auto Report Generator!
+                                    Welcome to for Your doctor Appointment in ${chamberName}!
                                   </div>
                                 </td>
                               </tr>
@@ -178,12 +177,12 @@ const sendResetEmail = async (
                                             first_name ? first_name : "Visitor"
                                           },
                                         </h2>
-
-                                        <p>
-                                          Wow! Thanks for registering an account with Auto Report Generator! You're the coolest person in all the land.
+                                        <h1 style="font-family: Whitney, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif;font-weight: 500;font-size: 24px;color: #4F545C;letter-spacing: 0.27px; text-transform: uppercase;">${subject}</h1>
+                                        <p  >
+                                          Wow! ${body}
                                         </p>
 
-                                        <h1>${subject}</h1>
+                                       
                                         
                                       </div>
                                     </td>
@@ -195,9 +194,18 @@ const sendResetEmail = async (
                                         <tbody>
                                           <tr>
                                             <td style="border:none;border-radius:3px;color:white;cursor:auto;padding:15px 19px;" align="center" valign="middle" bgcolor="#7289DA">
-                                              <a href="${verificationLink}" style="text-decoration:none;line-height:100%;background:#7289DA;color:white;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:15px;font-weight:normal;text-transform:none;margin:0px;" target="_blank">
-                                                ${subject}
+                                              <a href="${verificationLink}" 
+                                              style="display:none; text-decoration:none;
+                                              line-height:100%;
+                                              background:#7289DA;
+                                              color:white;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:15px;font-weight:normal;text-transform:none;margin:0px;" target="_blank">
+                                                ${chamberName}
                                               </a>
+                                              <button  
+                                              style="text-decoration:none;line-height:100%;background:#7289DA;color:white;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:25px;font-weight:normal;text-transform:none;margin:0px;" target="_blank">
+                                                ${shcedule}
+                                              </button>
+
                                             </td>
                                           </tr>
                                         </tbody>	

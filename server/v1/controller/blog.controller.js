@@ -1,20 +1,20 @@
-const { successResponse } = require("../../helper/responseHandler");
+const {
+  successResponse,
+  errorResponse,
+} = require("../../helper/responseHandler");
 const { Blogs } = require("../../model/blog.model");
 const fileLib = require("../../helper/staticFile");
 const createBlog = async (req, res) => {
   const faviconPath = req.files?.favicon?.[0]?.path || "";
   const urlPath = req.files?.url?.[0]?.path || "";
- console.log({faviconPath, urlPath});
- console.log(req.body);
- 
- 
+  console.log({ faviconPath, urlPath });
+  console.log(req.body);
+
   // Create a new blog document
   const newBlog = new Blogs({
-  ...req.body,
+    ...req.body,
     url: urlPath,
     favicon: faviconPath,
-   
- 
   });
   // Save to the database
   const savedBlog = await newBlog.save();
@@ -41,16 +41,17 @@ const getAllBlogs = async (req, res) => {
     message: `${
       type ? `${type} found successfully` : `Data found successfully`
     }`,
-    payload:{
-      blogs
-    }
+    payload: {
+      blogs,
+    },
   });
 };
 
 const deleteBlog = async (req, res) => {
   const { id } = req.params;
+  console.log(id);
   const deletedBlog = await Blogs.findByIdAndDelete(id);
-
+  console.log(deletedBlog);
   if (!deletedBlog) {
     return errorResponse(res, {
       statusCode: 404,
@@ -93,11 +94,23 @@ const updateBlog = async (req, res) => {
       ...req.body.social_media, // New social media data from the request
     };
   }
+  const deletedBlog = await Blogs.findById(id);
+  console.log(deletedBlog);
+  if (deletedBlog.url) {
+    await fileLib.delete(deletedBlog.url);
+  }
+  if (deletedBlog.favicon) {
+    await fileLib.delete(deletedBlog.favicon);
+  }
 
   // Find and update the blog by ID
-  const updatedBlog = await Blogs.findByIdAndUpdate(id, updateData, {
-    new: true,
-  });
+  const updatedBlog = await Blogs.findByIdAndUpdate(
+    id,
+    { $set: updateData },
+    {
+      new: true,
+    }
+  );
 
   if (!updatedBlog) {
     return errorResponse(res, {

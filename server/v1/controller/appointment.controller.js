@@ -1,40 +1,112 @@
-const Holiday = require('./holidayModel');
+const sendResetEmail = require("../../helper/mailSent");
+const {
+  successResponse,
+  errorResponse,
+} = require("../../helper/responseHandler");
 
-// Controller for adding a new holiday
-exports.addHoliday = async (req, res) => {
-  try {
-    const newHoliday = new Holiday(req.body);
-    const savedHoliday = await newHoliday.save();
-    res.status(201).json(savedHoliday);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
+const { Appointment } = require("../../model/appointment.model");
+
+// Create Appointment
+const createAppointment = async (req, res) => {
+  const newAppointment = new Appointment({
+    ...req.body,
+  });
+
+  await newAppointment.save();
+  successResponse(res, {
+    statusCode: 201,
+    message: "Appointment created successfully!",
+    payload: {
+      data: newAppointment,
+    },
+  });
 };
 
-// Controller for updating a holiday
-exports.updateHoliday = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const updatedHoliday = await Holiday.findByIdAndUpdate(id, req.body, { new: true });
-    if (!updatedHoliday) {
-      return res.status(404).json({ message: 'Holiday not found' });
-    }
-    res.status(200).json(updatedHoliday);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
+// Get All Appointments
+const getAllAppointments = async (req, res) => {
+  const appointments = await Appointment.find();
+  successResponse(res, {
+    statusCode: 200,
+    message: "Appointments found successfully",
+    payload: { data: appointments },
+  });
 };
 
-// Controller for deleting a holiday
-exports.deleteHoliday = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const deletedHoliday = await Holiday.findByIdAndDelete(id);
-    if (!deletedHoliday) {
-      return res.status(404).json({ message: 'Holiday not found' });
-    }
-    res.status(200).json({ message: 'Holiday deleted successfully' });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+// Update Appointment Status (Approve/Reject)
+const updateAppointmentStatus = async (req, res) => {
+  const { id } = req.params;
+  const { status } = req.body;
+
+  // Find the appointment by ID
+  const appointment = await Appointment.findById(id);
+  if (!appointment) {
+    return res.status(404).json({ message: "Appointment not found." });
   }
+
+  // Update the appointment status
+  appointment.status = status;
+  await appointment.save();
+
+  // Send email if email is available
+  // Send email if email is available
+  if (appointment.email) {
+    const emailData = {
+      email: appointment.email,
+      first_name: appointment.name,
+      verificationLink: null,
+      shcedule: `${appointment.day} - ${appointment.date.toDateString()} at -${
+        appointment.time
+      }`,
+      subject: `${
+        status === "Approved"
+          ? "Your Appointment is Approved"
+          : "Your Appointment is Rejected"
+      }`,
+      chamberName: appointment.chamber,
+      body: `${
+        status === "Approved"
+          ? `${
+              appointment.day
+            },\n\nYour appointment for ${appointment.date.toDateString()} at ${
+              appointment.time
+            } has been approved.\n\nThank you,`
+          : `Sorry, your appointment has been cancelled due to doctor unavailability.`
+      }`,
+    };
+
+    // Call the email service
+    await sendResetEmail(emailData);
+  }
+
+  // Send response back to the client
+  successResponse(res, {
+    statusCode: 200,
+    message: `Appointment ${status.toLowerCase()} mail successfully sent!`,
+    appointment,
+  });
+};
+
+// Delete Appointment
+const deleteAppointment = async (req, res) => {
+  const { id } = req.params;
+
+  const appointment = await Appointment.findByIdAndDelete(id);
+  if (!appointment) {
+    return errorResponse(res, {
+      statusCode: 404,
+      message: "Appointment not found",
+    });
+  }
+
+  successResponse(res, {
+    statusCode: 200,
+    message: "Appointment deleted successfully!",
+  });
+};
+
+module.exports = {
+  getAllAppointments,
+  createAppointment,
+  deleteAppointment,
+  updateAppointmentStatus,
 };
