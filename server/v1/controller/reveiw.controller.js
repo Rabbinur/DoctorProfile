@@ -140,9 +140,9 @@ const dashboard = async (req, res) => {
     totalChambers.length > 0 ? totalChambers[0].totalChambers : 0;
 
   // Send the response with the calculated totals
-  res.status(200).json({
-    status: "success",
-    data: {
+  successResponse(res,{
+    statusCode:200,
+    payload: {
       totalReviews: totalReviewsCount,
       totalAppointments: totalAppointmentsCount,
       totalBlogs: totalBlogsCount,

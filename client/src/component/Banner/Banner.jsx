@@ -10,7 +10,7 @@ import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
 import { HiOutlineArrowSmallRight } from "react-icons/hi2";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
-import { fetchAllBanner } from "../../hooks/usefetch";
+
 import bannerImg from "../../assets/slider3.jpg";
 import { Link, NavLink } from "react-router-dom";
 const Banner = () => {
