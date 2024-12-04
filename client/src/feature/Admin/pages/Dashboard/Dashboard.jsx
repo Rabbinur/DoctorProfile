@@ -12,33 +12,35 @@ const Dashboard = () => {
     queryKey: ["dashboard"],
     queryFn: getDashboardData,
   });
- console.log(data.totalReviews);
+  const allData=data || [];
+//  console.log(allData.totalReviews);
   const cardData = [
     {
       icon: <TbReportAnalytics size={25} />,
-      total: data?.totalAppointments || 0,
+      total: allData?.totalAppointments || 0,
       title: "Total Reports",
     },
     {
       icon: <FaUsers size={25} />,
-      total: data?.totalBlogs || 0,
+      total: allData?.totalBlogs || 0,
       title: "Total Blogs",
     },
     {
       icon: <BsFillQuestionCircleFill size={25} />,
-      total: data?.totalReviews || 0,
+      total: allData?.totalReviews || 0,
       title: "Total Reviews",
     },
     {
       icon: <BsFillQuestionCircleFill size={25} />,
-      total: data?.totalChambers || 0,
+      total: allData?.totalChambers || 0,
       title: "Total Chambers",
     },
   ];
 
   return (
     <div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+      <div className="grid grid-cols-1
+       md:grid-cols-2 lg:grid-cols-3 gap-10">
         {/* {isFetching ? (
           `Loading`
         ) : (

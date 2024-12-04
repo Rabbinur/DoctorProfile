@@ -60,7 +60,7 @@ const updateAppointmentStatus = async (req, res) => {
       subject: `${
         status === "Approved"
           ? "Your Appointment is Approved"
-          : "Your Appointment is Rejected"
+          : "Your Appointment is Rejected try another day"
       }`,
       chamberName: appointment.chamber,
       body: `${

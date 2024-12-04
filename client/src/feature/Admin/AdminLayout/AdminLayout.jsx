@@ -63,7 +63,9 @@ const AdminLayout = () => {
           </div>
         </div>
         <div className="p-4">
-          <div className="bg-gradient-to-b from-white to-gray-50 shadow-green-300 rounded-xl shadow -lg p-6 space-y-6">
+          <div className="bg-gradient-to-b
+           from-white to-gray-50 
+           shadow-primary  rounded-xl shadow -lg p-6 space-y-6">
             <div>
               <Outlet />
             </div>
