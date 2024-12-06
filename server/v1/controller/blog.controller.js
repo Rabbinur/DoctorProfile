@@ -5,8 +5,8 @@ const {
 const { Blogs } = require("../../model/blog.model");
 const fileLib = require("../../helper/staticFile");
 const createBlog = async (req, res) => {
-  const faviconPath = req.files?.favicon?.[0]?.path || "";
-  const urlPath = req.files?.url?.[0]?.path || "";
+  const faviconPath = req.files?.favicon?.[0]?.filename || "";
+  const urlPath = req.files?.url?.[0]?.filename || "";
   console.log({ faviconPath, urlPath });
   console.log(req.body);
 
@@ -28,13 +28,14 @@ const createBlog = async (req, res) => {
 };
 
 const getAllBlogs = async (req, res) => {
-  const { type } = req.query;
+  const { type, page = 1, limit = 10 } = req.query;
 
-  // Create a filter object based on the type parameter
   const filter = type ? { type } : {};
 
-  // Find blogs based on the filter
-  const blogs = await Blogs.find(filter);
+  const totalBlogs = await Blogs.countDocuments(filter);
+  const blogs = await Blogs.find(filter)
+    .skip((page - 1) * limit)
+    .limit(Number(limit));
 
   successResponse(res, {
     statusCode: 200,
@@ -43,9 +44,15 @@ const getAllBlogs = async (req, res) => {
     }`,
     payload: {
       blogs,
+      pagination: {
+        total: totalBlogs,
+        page: Number(page),
+        limit: Number(limit),
+      },
     },
   });
 };
+
 
 const deleteBlog = async (req, res) => {
   const { id } = req.params;
@@ -80,10 +87,10 @@ const updateBlog = async (req, res) => {
   // Check for uploaded files and set them in the update data if they exist
   if (req.files) {
     if (req.files.url) {
-      updateData.url = req.files.url[0]?.path || updateData.url;
+      updateData.url = req.files.url[0]?.filename || updateData.url;
     }
     if (req.files.favicon) {
-      updateData.favicon = req.files.favicon[0]?.path || updateData.favicon;
+      updateData.favicon = req.files.favicon[0]?.filename || updateData.favicon;
     }
   }
 

@@ -11,14 +11,35 @@ const getProfile = async (req, res, next) => {
     statusCode: 200,
     message: "Profile  found successfully",
     payload: {
-      data: getProfileData,
+      getProfileData,
+    },
+  });
+};
+const getProfileById = async (req, res, next) => {
+  const { id } = req.params; // Extract the ID from the request parameters
+
+  // Find a single profile by its ID
+  const profile = await Profile.findById(id);
+
+  if (!profile) {
+    return res.status(404).json({
+      status: 404,
+      message: "Profile not found",
+    });
+  }
+
+  successResponse(res, {
+    statusCode: 200,
+    message: "Profile found successfully",
+    payload: {
+      profile,
     },
   });
 };
 
 const createProfile = async (req, res) => {
   const { name, designation, desc, service } = req.body;
-  const urlPath = req.files?.url?.[0]?.path || "";
+  const urlPath = req.files?.url?.[0]?.filename || "";
   // Validation
   if (!name || !designation || !desc || !service || !service.length) {
     return errorResponse(res, {
@@ -48,6 +69,8 @@ const createProfile = async (req, res) => {
 const updateProfileById = async (req, res) => {
   const { id } = req.params;
   const updates = { ...req.body };
+  console.log(updates);
+
   const findProfile = await Profile.findById(id);
 
   if (!findProfile) {
@@ -58,19 +81,26 @@ const updateProfileById = async (req, res) => {
   }
 
   // Delete the existing file if a new file is uploaded
-  if (findProfile.url) {
+  if (req.files && req.files.url) {
     await fileLib.delete(findProfile.url);
   }
 
   if (req.files && req.files.url) {
-    updates.url = req.files.url[0]?.path || updates.url;
+    updates.url = req.files.url[0]?.filename || updates.url;
   }
 
   // Ensure `services` is properly updated
-  if (Array.isArray(req.body.services)) {
-    updates.services = req.body.services; // Directly set `services` to the new array from the request
+  if (req.body.services) {
+    try {
+      updates.services = JSON.parse(req.body.services); // Parse the JSON string safely
+    } catch (error) {
+      return errorResponse(res, {
+        statusCode: 400,
+        message: "Invalid services data format.",
+      });
+    }
   } else if (findProfile.services) {
-    updates.services = [...findProfile.services, ...(req.body.services || [])]; // Merge existing and new if needed
+    updates.services = [...findProfile.services, ...(req.body.services || [])];
   }
 
   const updatedProfile = await Profile.findByIdAndUpdate(
@@ -122,5 +152,5 @@ module.exports = {
   getProfile,
   createProfile,
   deleteProfileById,
-  updateProfileById,
+  updateProfileById,getProfileById
 };

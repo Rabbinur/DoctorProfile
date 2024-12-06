@@ -2,9 +2,11 @@ import React from "react";
 import Title from "../ui/Title/Title";
 import Container from "../ui/Container/Container";
 import profile from "../../assets/doctorimage.webp";
+import Services from "../services/Services";
 const DoctorProfile = () => {
   return (
-    <div id="about" className="py-20">
+    <>
+       <div id="about" className="py-20">
       <Container>
         <Title> Who Am I ? </Title>
 
@@ -58,6 +60,10 @@ const DoctorProfile = () => {
         </div>
       </Container>
     </div>
+    
+    <Services/>   
+    </>
+ 
   );
 };
 

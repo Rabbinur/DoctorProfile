@@ -6,8 +6,9 @@ const scheduleSchema = new mongoose.Schema({
 });
 
 const chamberSchema = new mongoose.Schema({
-  chamber: { type: String, required: true, unique: true }, // Unique field
+  chamber: { type: String, required: true, unique: true }, 
+  address:{ type: String},
   schedule: { type: [scheduleSchema], required: true },
-});
+}, { timestamps: true } );
 
 module.exports = { Chamber: mongoose.model("Chamber", chamberSchema) };

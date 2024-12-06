@@ -1,5 +1,6 @@
 const express = require("express");
 const helmet = require("helmet");
+const path = require("path");
 const cors = require("cors");
 const { limiter } = require("./middleware/rateLimiter");
 const apiRoute = require("./v1/routes/ApiRoute");
@@ -13,7 +14,7 @@ const allowedDomains = [
   `${process.env.SERVER_URL}`,
   `${process.env.ADMIN_URL}`,
   "http://localhost:5173",
-  "http://localhost:9000/",
+  "http://localhost:9000",
   "http://localhost:5174",
 ];
 
@@ -22,6 +23,13 @@ const allowedDomains = [
 // App initialization
 const app = express();
 
+// CORS setup
+app.use(
+  cors({
+    origin: allowedDomains,
+    credentials: true,
+  })
+);
 // Apply rate limiter to all API routes
 app.use("/api/", limiter);
 app.use(morgan('dev'))
@@ -29,8 +37,9 @@ app.use(morgan('dev'))
 app.use(helmet());
 app.use(express.json({ limit: "16kb" }));
 app.use(express.urlencoded({ extended: true, limit: "16kb" }));
-app.use(express.static("public"));
+// app.use(express.static("public"));
 
+app.use("/uploads", express.static("uploads"));
 // Referrer-based access control (optional, if needed)
 app.use("/api", (req, res, next) => {
   const origin = req.get("origin"); // Use Origin header if Referer is not available
@@ -51,13 +60,7 @@ app.use("/api", (req, res, next) => {
 });
 
 
-// CORS setup
-app.use(
-  cors({
-    origin: allowedDomains,
-    credentials: true,
-  })
-);
+
 
 // Set EJS as the view engine
 app.set("view engine", "ejs");

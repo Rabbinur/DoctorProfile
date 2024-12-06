@@ -2,24 +2,15 @@ import React, { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
+import { Api } from "../../utils/Api";
 import Container from "../ui/Container/Container";
 import image from "../../assets/map.png";
 import user from "../../assets/user.jpeg";
 import { toast } from "react-toastify";
 import Icon from "../ui/Icon/Icon";
-
-const feedback = [
-  {
-    name: "Md Rabbinur Muktar",
-    rate: 4,
-    desc: "A smile adorns a person. I am glad that I can decorate people even in this way. Dentistry is not expensive, neglect is Being a famous designer is like being a famous dentist.",
-  },
-  {
-    name: "Rabbinur Muktar",
-    rate: 5,
-    desc: "A smile adorns a person. I am glad that I can decorate people even in this way. Dentistry is not expensive, neglect is Being a famous designer is like being a famous dentist.",
-  },
-];
+import { useMutation } from "@tanstack/react-query";
+import { createReview, getReviewData } from "../../hooks/usefetch";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 const Testimonial = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -27,20 +18,72 @@ const Testimonial = () => {
     name: "",
     email: "",
     rating: "",
-    comments: "",
+    desc: "",
+  });
+  const [file, setFile] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState("");
+  const status = "Approved";
+  const { data, isFetching } = useQuery({
+    queryKey: ["review", status],
+    queryFn: () => {
+      return getReviewData({ status });
+    },
   });
 
+  const feedback = data || [];
+  console.log(feedback);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    const newValue = name === "rating" ? Number(value) : value;
+    setFormData({ ...formData, [name]: newValue });
   };
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    if (selectedFile) {
+      setFile(selectedFile);
+
+      // Generate a preview URL for the image
+      const preview = URL.createObjectURL(selectedFile);
+      setPreviewUrl(preview);
+    }
+  };
+
+  const queryClient = useQueryClient();
+  const addMutation = useMutation({
+    mutationFn: (formData) => createReview(formData),
+    onSuccess: (data) => {
+      queryClient.invalidateQueries(["review", status]);
+      setIsModalOpen(false);
+      setFormData({ name: "", email: "", rating: "", desc: "" });
+      setFile(null);
+      setPreviewUrl("");
+      if (data.message) {
+        toast.success(data.message);
+      }
+    },
+    onError: (error) => {
+      toast.error(error.message || "Something went wrong"); // Display error toast
+    },
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form Data:", formData);
-    toast.success("Successfully submitted your review");
-    setIsModalOpen(false);
-    setFormData({ name: "", email: "", rating: "", comments: "" });
+    const formDataToSend = new FormData();
+
+    // Append form data
+    Object.keys(formData).forEach((key) => {
+      formDataToSend.append(key, formData[key]);
+    });
+
+    // Append file data
+    if (file) {
+      formDataToSend.append("url", file);
+    }
+    console.log("Form Data:", formDataToSend);
+    addMutation.mutate(formDataToSend);
+    // toast.success("Successfully submitted your review");
+    // setIsModalOpen(false);
+    // setFormData({ name: "", email: "", rating: "", comments: "" });
   };
 
   return (
@@ -64,33 +107,66 @@ const Testimonial = () => {
             spaceBetween={10}
             slidesPerView={1}
           >
-            {feedback.map((item, i) => (
-              <SwiperSlide key={i}>
-                <div className="max-w-2xl text-center mx-auto group border-gray-300 shadow-sm px-3 py-6 rounded-md duration-300 cursor-pointer">
-                  <img
-                    src={user}
-                    alt="User"
-                    className="w-[100px] h-[100px] rounded-full mx-auto group-hover:scale-105 duration-300"
-                  />
-                  <p className="flex gap-2 items-center justify-center py-5">
-                    {Array.from({ length: 5 }).map((_, i) => (
-                      <span key={i}>
-                        <Icon
-                          type="star"
-                          className={`${
-                            i < item.rate ? "text-yellow-500" : "text-gray-400"
-                          }`}
-                        />
-                      </span>
-                    ))}
-                  </p>
-                  <h1 className="text-lg font-medium mt-4 mb-2 group-hover:text-primary duration-300">
-                    {item.name}
-                  </h1>
-                  <p>{item.desc}</p>
-                </div>
-              </SwiperSlide>
-            ))}
+            {feedback.map((item, i) => {
+              console.log(item.url);
+              return (
+                <SwiperSlide key={i}>
+                  <div className="max-w-2xl text-center mx-auto group border-gray-300 shadow-sm px-3 py-6 rounded-md duration-300 cursor-pointer">
+                    {/* <img
+                 r     srcSet={`${
+                        item?.url?.includes("/static/")
+                          ? item?.url
+                          : `${Api.defaults.baseURL}/uploads/${item?.url}`
+                      } 1x,
+    ${
+      item?.url?.includes("/static/")
+        ? item?.url
+        : `${Api.defaults.baseURL}/uploads/${item?.url}`
+    } 2x`}
+                      sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
+                      src={
+                        item?.url?.includes("/static/")
+                          ? item?.url
+                          : `${Api.defaults.baseURL}/uploads/${item?.url}`
+                      }
+                      alt={item?.name}
+                      loading="lazy"
+                      className="object-cover w-full transition-all duration-300 h-52 md:h-56 lg:h-80 rounded-xl group-hover:scale-110"
+                    /> */}
+                   <div className="flex justify-center">
+                   <img
+                      src={`${Api.defaults.baseURL}/uploads/${item?.url}`}
+                    crossOrigin="anonymous"
+                      alt={item?.name}
+                      loading="lazy"
+                      className="  transition-all 
+                      duration-300
+                       size-20 rounded-full group-hover:scale-110"
+                    />
+                   </div>
+
+                    <p className="flex gap-2 items-center justify-center py-5">
+                      {Array.from({ length: 5 }).map((_, i) => (
+                        <span key={i}>
+                          <Icon
+                            type="star"
+                            className={`${
+                              i < item.rating
+                                ? "text-yellow-500"
+                                : "text-gray-400"
+                            }`}
+                          />
+                        </span>
+                      ))}
+                    </p>
+                    <h1 className="text-lg font-medium mt-4 mb-2 group-hover:text-primary duration-300">
+                      {item.name}
+                    </h1>
+                    <p>{item.desc}</p>
+                  </div>
+                </SwiperSlide>
+              );
+            })}
           </Swiper>
         </div>
 
@@ -118,6 +194,30 @@ const Testimonial = () => {
               <div>
                 <label className="block text-sm font-medium mb-1">Name</label>
                 <input
+                  type="file"
+                  name="url"
+                  value={formData.url}
+                  onChange={handleFileChange}
+                  required
+                  placeholder="Enter Full Name"
+                  className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                />
+              </div>
+              <div>
+                {previewUrl && (
+                  <div style={{ margin: "10px 0" }}>
+                    <p>Image Preview:</p>
+                    <img
+                      src={previewUrl}
+                      alt="Preview"
+                      style={{ maxWidth: "100%", maxHeight: "50px" }}
+                    />
+                  </div>
+                )}
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-1">Name</label>
+                <input
                   type="text"
                   name="name"
                   value={formData.name}
@@ -127,7 +227,7 @@ const Testimonial = () => {
                   className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                 />
               </div>
-              <div>
+              <div className="hidden">
                 <label className="block text-sm font-medium mb-1">Email</label>
                 <input
                   type="email"
@@ -162,8 +262,8 @@ const Testimonial = () => {
                   Comments
                 </label>
                 <textarea
-                  name="comments"
-                  value={formData.comments}
+                  name="desc"
+                  value={formData.desc}
                   onChange={handleInputChange}
                   required
                   className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"

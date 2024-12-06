@@ -13,40 +13,26 @@ import { motion } from "framer-motion";
 
 import bannerImg from "../../assets/slider3.jpg";
 import { Link, NavLink } from "react-router-dom";
+import { fetchAllBanner, getAllBlogs } from "../../hooks/usefetch";
+import { Api } from "../../utils/Api";
 const Banner = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleSlideChange = (swiper) => {
     setCurrentIndex(swiper.activeIndex); // Update the current slide index on slide change
   };
-  // const { data, isLoading, error } = useQuery({
-  //   queryKey: ["banners"],
-  //   queryFn: fetchAllBanner,
-  // });
-  const data = [
-    {
-      title: "Search for Best Surgeon",
-      description:
-        "HealSoul Health Services provide patients with choices to ask for the conducting",
-      position: "banner",
-    },
-    {
-      title: "Search for Best Surgeon",
-      description:
-        "HealSoul Health Services provide patients with choices to ask for the conducting",
-      position: "banner",
-    },
-    {
-      title: "Search for Best Surgeon",
-      description:
-        "HealSoul Health Services provide patients with choices to ask for the conducting",
-      position: "banner",
-    },
-  ];
-  // const banners = data?.data || [];
-  const banners = data;
-  const filteredBanners = banners?.filter((item) => item.position === "banner");
 
+  const type="banner"
+  const [page, setPage] = useState(1);
+  const [limit] = useState(10);
+
+  const { data: allData = {}, isFetching } = useQuery({
+    queryKey: ["banners", type, limit, page],
+    queryFn: () => getAllBlogs({ type, page, limit }),
+    keepPreviousData: true,
+  });
+  const banners = allData?.blogs || [];
+console.log(banners);
   return (
     <div id="home" className=" ">
       <div className="">
@@ -66,7 +52,7 @@ const Banner = () => {
             }}
             onSlideChange={handleSlideChange}
           >
-            {filteredBanners?.map((bannerItem, index) => (
+            {banners?.map((bannerItem, index) => (
               <SwiperSlide key={index}>
                 <div
                   className="
@@ -74,8 +60,11 @@ const Banner = () => {
                 >
                   <div className="relative ">
                     <img
-                      src={bannerItem?.imageUrl || bannerImg} 
-                      alt={bannerItem?.title || "Banner Image"}
+                     src={`${Api.defaults.baseURL}/uploads/${bannerItem?.url}` }
+                     crossOrigin="anonymous"
+                     alt={bannerItem?.title}
+                     loading="lazy"
+                  
                       className="w-full h-[55vh] lg:h-[80vh] z-20 group-hover:scale-105 duration-300 
                       object-cover object -center"
                     />
@@ -98,7 +87,7 @@ const Banner = () => {
                         <h1>{bannerItem.title || "Default Title"}</h1>
                       </div>
                       <p className=" text-[15px] lg:text-md py-5 text-justify text-black font-medium">
-                        {bannerItem.description ||
+                        {bannerItem.desc ||
                           "Lorem ipsum dolor sit amet, consectetur adipisicing elit."}
                       </p>
                       <div className="flex justify-center md:justify-start">

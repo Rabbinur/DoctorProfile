@@ -12,6 +12,7 @@ import Blogs from "../feature/Admin/pages/Blogs/Blogs";
 
 import SignIn from "../feature/Admin/Auth/SignIn";
 import AdminRoute from "./PrivateRoutes";
+import AboutFormData from "../feature/Admin/components/AboutDetails/AboutFromData";
 
 export const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ export const router = createBrowserRouter([
       {
         path: "/admin/about",
         element: <About />,
+      },
+      {
+        path: "/admin/about/:id",
+        element: <AboutFormData />,
       },
       {
         path: "/admin/contact",

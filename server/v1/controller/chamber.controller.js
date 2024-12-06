@@ -4,7 +4,7 @@ const { Chamber } = require("../../model/chamber.model");
 // Createc
 const createChamber = async (req, res) => {
 
-    const { chamber, schedule } = req.body;
+    const { chamber,address, schedule } = req.body;
 
     // Validation
     if (!chamber || !schedule || !schedule.length) {
@@ -20,7 +20,7 @@ const createChamber = async (req, res) => {
     }
 
     // Create new chamber
-    const newChamber = new Chamber({ chamber, schedule });
+    const newChamber = new Chamber({ chamber,address, schedule });
     await newChamber.save();
 
     successResponse(res,{statusCode:201,
@@ -113,7 +113,7 @@ const getChamber = async (req, res) => {
     statusCode: 200,
     message: "Chamber found successfully",
     payload: {
-      data: chamber,
+      chamber,
     },
   });
 };

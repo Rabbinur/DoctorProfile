@@ -9,9 +9,10 @@ const { Blogs } = require("../../model/blog.model");
 const { Chamber } = require("../../model/chamber.model");
 // Create a new item
 const createItem = async (req, res) => {
-  const { name, desc, rating } = req.body;
-  const urlPath = req.files?.url?.[0]?.path || "";
-  const newItem = new Review({ name, url: urlPath, desc, rating });
+  const { name, desc, rating,email } = req.body;
+  console.log({ name, desc, rating, email });
+  const urlPath = req.files?.url?.[0]?.filename || "";
+  const newItem = new Review({ name,email, url: urlPath, desc, rating });
   await newItem.save();
   successResponse(res, {
     statusCode: 201,
@@ -24,7 +25,11 @@ const createItem = async (req, res) => {
 
 // Get all items
 const getItems = async (req, res) => {
-  const items = await Review.find();
+
+  const {status}=req.query
+console.log(status);
+  const query=status? {status} :{}
+  const items = await Review.find(query);
   successResponse(res, {
     message: "Review fetched successfully",
     payload: {
@@ -39,7 +44,7 @@ const updateItem = async (req, res) => {
   const updates = { ...req.body };
 
   console.log(updates);
-  const urlPath = req.files?.url?.[0]?.path || "";
+  const urlPath = req.files?.url?.[0]?.filename || "";
 
   // Find the item to update by ID
   const itemToUpdate = await Review.findById(id);
@@ -79,18 +84,28 @@ const updateItem = async (req, res) => {
 const deleteItem = async (req, res) => {
   const { id } = req.params;
 
-  const item = await Review.findByIdAndDelete(id);
+  // Find the item by ID
+  const item = await Review.findById(id);
+  
   if (!item) {
     return errorResponse(res, { statusCode: 404, message: "Review not found" });
   }
+
+  // If the item has a URL, delete the associated file
   if (item.url) {
     await fileLib.delete(item.url);
   }
+
+  // Delete the item from the database
+  await Review.findByIdAndDelete(id);
+
+  // Send success response
   successResponse(res, {
     statusCode: 200,
     message: "Item deleted successfully",
   });
 };
+
 
 const dashboard = async (req, res) => {
   // Use Promise.all to run multiple aggregation queries concurrently

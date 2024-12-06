@@ -11,7 +11,7 @@ const About = () => {
         <div>
           <div className="flex flex-wrap items-center py-5 justify-between">
             <h1 className="text-xl font-bold mb-4">Doctor Profile</h1>
-            <div className="flex gap-5 mr-5">
+            <div className="flex hidden gap-5 mr-5">
               {iconsData.map(({ key, label, icon }, i) => (
                 <button
                   key={i}
@@ -41,9 +41,9 @@ const About = () => {
             {/* Display content based on active button */}
 
             {selectedItem === "details" && <AboutDetails />}
-            {selectedItem === "addNew" && (
+            {/* {selectedItem === "addNew" && (
               <AboutFromData setSelectedItem={setSelectedItem} />
-            )}
+            )} */}
           </div>
         </div>
       </div>

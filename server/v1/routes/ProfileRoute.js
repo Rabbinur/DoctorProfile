@@ -4,7 +4,7 @@ const { getAllBlogs } = require("../controller/blog.controller");
 const {
   createProfile,
   updateProfileById,
-  deleteProfileById,
+  deleteProfileById,getProfileById,
   getProfile,
 } = require("../controller/profile.controller");
 const upload = require("../../middleware/multa.middleware");
@@ -12,6 +12,7 @@ const upload = require("../../middleware/multa.middleware");
 const ProfileRouter = express.Router();
 
 ProfileRouter.route("/all").get(asyncHandler(getProfile));
+ProfileRouter.route("/:id").get(asyncHandler(getProfileById));
 
 ProfileRouter.route("/create").post(
   upload.fields([{ name: "url", maxCount: 1 }]),

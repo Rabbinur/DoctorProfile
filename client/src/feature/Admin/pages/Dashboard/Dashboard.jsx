@@ -11,6 +11,7 @@ const Dashboard = () => {
   const { data, isFetching } = useQuery({
     queryKey: ["dashboard"],
     queryFn: getDashboardData,
+    keepPreviousData: true
   });
   const allData=data || [];
 //  console.log(allData.totalReviews);
@@ -18,7 +19,7 @@ const Dashboard = () => {
     {
       icon: <TbReportAnalytics size={25} />,
       total: allData?.totalAppointments || 0,
-      title: "Total Reports",
+      title: "Total Appointments",
     },
     {
       icon: <FaUsers size={25} />,
@@ -40,7 +41,7 @@ const Dashboard = () => {
   return (
     <div>
       <div className="grid grid-cols-1
-       md:grid-cols-2 lg:grid-cols-3 gap-10">
+       md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-10">
         {/* {isFetching ? (
           `Loading`
         ) : (

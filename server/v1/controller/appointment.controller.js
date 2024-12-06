@@ -8,8 +8,9 @@ const { Appointment } = require("../../model/appointment.model");
 
 // Create Appointment
 const createAppointment = async (req, res) => {
+  console.log(req.body.updatedData);
   const newAppointment = new Appointment({
-    ...req.body,
+    ...req.body.updatedData,
   });
 
   await newAppointment.save();
@@ -24,19 +25,32 @@ const createAppointment = async (req, res) => {
 
 // Get All Appointments
 const getAllAppointments = async (req, res) => {
-  const appointments = await Appointment.find();
-  successResponse(res, {
-    statusCode: 200,
-    message: "Appointments found successfully",
-    payload: { data: appointments },
-  });
+  const { mobile, page = 1, limit = 10 } = req.query;
+    const query = mobile ? { mobile } : {};
+    const total = await Appointment.countDocuments(query);
+    const appointments = await Appointment.find(query)
+      .skip((page - 1) * limit)
+      .limit(Number(limit))
+      .sort({ date: -1 }); // Sorting by date (latest first)
+
+    successResponse(res, {
+      statusCode: 200,
+      message: "Appointments retrieved successfully",
+      payload: {
+        data: appointments,
+        total,
+        currentPage: Number(page),
+        totalPages: Math.ceil(total / limit),
+      },
+    });
 };
+
 
 // Update Appointment Status (Approve/Reject)
 const updateAppointmentStatus = async (req, res) => {
   const { id } = req.params;
   const { status } = req.body;
-
+ console.log({id, status});
   // Find the appointment by ID
   const appointment = await Appointment.findById(id);
   if (!appointment) {
