@@ -5,7 +5,7 @@ import AppointmentDetails from '../../components/AppoinemntDetails/AppointmentDe
 const Appoinment = () => {
     const [selectedItem, setSelectedItem] = useState("details");
   return (
-    <div>
+    <div >
       <div className="p-4">
         <div>
           <div className="flex flex-wrap items-center py-5 justify-between">

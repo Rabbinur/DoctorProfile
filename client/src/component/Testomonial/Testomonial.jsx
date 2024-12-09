@@ -110,8 +110,9 @@ const Testimonial = () => {
             {feedback.map((item, i) => {
               console.log(item.url);
               return (
-                <SwiperSlide key={i}>
-                  <div className="max-w-2xl text-center mx-auto group border-gray-300 shadow-sm px-3 py-6 rounded-md duration-300 cursor-pointer">
+                <SwiperSlide key={i} data-aos="fade-in"
+                data-aos-delay="300">
+                  <div   className="max-w-2xl text-center mx-auto group border-gray-300 shadow-sm px-3 py-6 rounded-md duration-300 cursor-pointer">
                     {/* <img
                  r     srcSet={`${
                         item?.url?.includes("/static/")
@@ -136,7 +137,7 @@ const Testimonial = () => {
                    <div className="flex justify-center">
                    <img
                       src={`${Api.defaults.baseURL}/uploads/${item?.url}`}
-                    crossOrigin="anonymous"
+                    // crossOrigin="anonymous"
                       alt={item?.name}
                       loading="lazy"
                       className="  transition-all 
@@ -171,7 +172,8 @@ const Testimonial = () => {
         </div>
 
         {/* Write Review Button */}
-        <div className="max-w-2xl mx-auto py-10">
+        <div data-aos="fade-in"
+          data-aos-delay="400" className="max-w-2xl mx-auto py-10">
           <div className="flex justify-center">
             <button
               onClick={() => setIsModalOpen(true)}

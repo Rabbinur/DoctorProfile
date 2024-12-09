@@ -48,7 +48,7 @@ const BannerDetails = () => {
                 <div className="h-40">
                   <img
                     src={`${Api.defaults.baseURL}/uploads/${item?.url}`}
-                    crossOrigin="anonymous"
+                    // crossOrigin="anonymous"
                     alt={item?.name}
                     loading="lazy"
                     className=" h-40 object-cover transition-all 

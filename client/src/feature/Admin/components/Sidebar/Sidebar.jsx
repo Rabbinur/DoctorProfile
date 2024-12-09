@@ -66,13 +66,13 @@ const Sidebar = ({
       icon: <LuImagePlus size={25} />,
       path: "/admin/banner",
     },
-    // {
-    //   id: "user",
-    //   title: "User Settings",
-    //   label: "User Access",
-    //   icon: <IoSettings size={23} />,
-    //   path: "/user-access",
-    // },
+    {
+      id: "site",
+      title: "Site Settings",
+      label: "Site Settings",
+      icon: <IoSettings size={23} />,
+      path: "/admin/site",
+    },
   ];
 
   useEffect(() => {
@@ -86,10 +86,10 @@ const Sidebar = ({
     <div
       className={`${isCollapsed ? "w-16" : "w-[18rem] p-3"} ${
         isSidebarOpen ? "block h-screen" : "hidden"
-      } border md:block fixed md:relative z-20 md:z-auto bg-gray-100 transition-width duration-300`}
+      } border md:block fixed md:relative z-20 md:z-auto  bg-gray-100 transition-width duration-300`}
     >
       <div className="flex items-center justify-center p-3 bg-gray-100">
-        {!isCollapsed && <img src={logo} alt="Logo" />}
+        {!isCollapsed && <img src={logo} alt="Logo" className="w-32" />}
         <button
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
           className={`text-gray-500 absolute top-3 right-5 focus:outline-none ${

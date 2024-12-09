@@ -13,6 +13,8 @@ import Blogs from "../feature/Admin/pages/Blogs/Blogs";
 import SignIn from "../feature/Admin/Auth/SignIn";
 import AdminRoute from "./PrivateRoutes";
 import AboutFormData from "../feature/Admin/components/AboutDetails/AboutFromData";
+import SiteDetails from "../feature/Admin/components/Site/SiteDetails";
+import EditFromData from "../feature/Admin/components/Site/editFromData";
 
 export const router = createBrowserRouter([
   {
@@ -68,6 +70,14 @@ export const router = createBrowserRouter([
       {
         path: "/admin/reviews",
         element: <Review />,
+      },
+      {
+        path: "/admin/site",
+        element: <SiteDetails />,
+      },
+      {
+        path: "/admin/site/:id",
+        element: <EditFromData />,
       },
     ],
   },

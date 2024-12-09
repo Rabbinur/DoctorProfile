@@ -40,7 +40,7 @@ console.log(data)
         desc: data.desc?.replace(/<\/?[^>]+(>|$)/g, '')|| "",
         services: data.services || [],
       });
-      setDescription({description:data.desc?.replace(/<\/?[^>]+(>|$)/g, '')|| "",})
+      // setDescription({description:data.desc?.replace(/<\/?[^>]+(>|$)/g, '')|| "",})
       if (data.url) {
         setPreviewUrl(`${Api.defaults.baseURL}/uploads/${data.url}`);
       }
@@ -190,7 +190,7 @@ console.log(data)
           <img
             src={previewUrl}
             alt="Preview"
-            crossOrigin="anonymous"
+            // crossOrigin="anonymous"
             className="mt-2 w-full h-52 object-cover"
           />
         )}

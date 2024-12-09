@@ -12,7 +12,11 @@ const blogSchema = new Schema(
       lnk: { type: String, default: "" },
       tw: { type: String, default: "" },
     },
+
     title: { type: String },
+    email: { type: String },
+    address: { type: String },
+    mobile: { type: String },
     desc: { type: String },
     category: { type: String },
     type: {
@@ -26,6 +30,3 @@ const blogSchema = new Schema(
 );
 
 module.exports = { Blogs: mongoose.model("Blogs", blogSchema) };
-
-
-

@@ -12,6 +12,7 @@ import { AiOutlineMail } from "react-icons/ai";
 import { MdOutlinePhone } from "react-icons/md";
 import { IoIosArrowRoundDown } from "react-icons/io";
 import { IoIosStarOutline } from "react-icons/io";
+import { FaWhatsapp } from "react-icons/fa6";
 
 
 const iconMap = {
@@ -29,7 +30,8 @@ const iconMap = {
   CiTwitter: CiTwitter,
   TbWorld: TbWorld,
   uparrow: GoArrowUp,
-  star:IoIosStarOutline
+  star:IoIosStarOutline,
+  whatsapp:FaWhatsapp
 };
 
 const Icon = React.memo(({ type, className = "", size = "" }) => {

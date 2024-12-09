@@ -5,12 +5,13 @@ const {
   getAllBlogs,
   createBlog,
   updateBlog,
-  deleteBlog,
+  deleteBlog,getBlogById
 } = require("../controller/blog.controller");
 const upload = require("../../middleware/multa.middleware");
 
 const BlogRouter = express.Router();
 BlogRouter.route("/all").get(asyncHandler(getAllBlogs)); ///?type=blog
+BlogRouter.route("/:id").get(asyncHandler(getBlogById)); ///?type=blog
 BlogRouter.route("/update/:id").patch(
   upload.fields([
     { name: "url", maxCount: 1 },

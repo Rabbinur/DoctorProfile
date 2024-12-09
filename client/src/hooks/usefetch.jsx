@@ -153,11 +153,29 @@ export const fetchAboutDataId = async (id) => {
 
 //update
 export const updateAbout = async (id, formData) => {
-  console.log(id,formData);
+ 
   const response = await Api.patch(`/profile/update/${id}`, formData, {
     headers: {
       "Content-Type": "multipart/form-data",
     },
   });
   return response.data.payload;
+};
+
+
+export const updateSiteDetails = async (id, formData) => {
+  const response = await Api.patch(`/blog/update/${id}`, formData);
+  return response.data.payload;
+};
+
+
+export const fetchsingleSite = async (id) => {
+  console.log(id);
+  try {
+    const res = await Api.get(`/blog/${id}`);
+    // console.log(res.data.payload.blog);
+    return res.data.payload.blog;
+  } catch (error) {
+    console.error(`Failed to fetch profile data`);
+  }
 };

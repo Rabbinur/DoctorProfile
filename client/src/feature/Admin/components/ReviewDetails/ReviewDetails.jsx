@@ -152,7 +152,7 @@ const ReviewDetails = () => {
                         <img src={review.url} alt="" />
                         <img
                           src={`${Api.defaults.baseURL}/uploads/${review?.url}`}
-                          crossOrigin="anonymous"
+                          // crossOrigin="anonymous"
                           alt={review?.name}
                           loading="lazy"
                           className="  transition-all 

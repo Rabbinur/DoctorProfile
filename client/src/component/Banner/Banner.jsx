@@ -61,7 +61,7 @@ console.log(banners);
                   <div className="relative ">
                     <img
                      src={`${Api.defaults.baseURL}/uploads/${bannerItem?.url}` }
-                     crossOrigin="anonymous"
+                    //  crossOrigin="anonymous"
                      alt={bannerItem?.title}
                      loading="lazy"
                   

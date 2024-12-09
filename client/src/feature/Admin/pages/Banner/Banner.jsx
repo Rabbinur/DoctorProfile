@@ -6,7 +6,7 @@ import BannerFromData from '../../components/BannerDetails/BannerFromData';
 const Banner = () => {
     const [selectedItem, setSelectedItem] = useState("details");
   return (
-    <div>
+    <div > 
       <div className="p-4">
         <div>
           <div className="flex flex-wrap items-center py-5 justify-between">

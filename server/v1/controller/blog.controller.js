@@ -53,6 +53,34 @@ const getAllBlogs = async (req, res) => {
   });
 };
 
+const getBlogById = async (req, res) => {
+  const { id } = req.params; // Get the blog ID from the URL parameter
+
+  try {
+    const blog = await Blogs.findById(id); // Find a blog by its ID
+
+    if (!blog) {
+      return res.status(404).json({
+        status: "error",
+        message: "Blog not found",
+      });
+    }
+
+    successResponse(res, {
+      statusCode: 200,
+      message: "Blog found successfully",
+      payload: {
+        blog,
+      },
+    });
+  } catch (error) {
+    // Handle errors like invalid ObjectId format
+    return res.status(400).json({
+      status: "error",
+      message: "Invalid blog ID",
+    });
+  }
+};
 
 const deleteBlog = async (req, res) => {
   const { id } = req.params;
@@ -80,43 +108,61 @@ const deleteBlog = async (req, res) => {
   });
 };
 
+
+// Update blog function
 const updateBlog = async (req, res) => {
   const { id } = req.params;
   const updateData = { ...req.body };
 
-  // Check for uploaded files and set them in the update data if they exist
+  // Fetch the current blog data
+  const existingBlog = await Blogs.findById(id);
+  if (!existingBlog) {
+    return errorResponse(res, {
+      statusCode: 404,
+      message: "Blog not found",
+    });
+  }
+
+  console.log("Existing blog:", existingBlog);
+
+  // Handle uploaded files
   if (req.files) {
+    // Update or replace the URL
     if (req.files.url) {
-      updateData.url = req.files.url[0]?.filename || updateData.url;
+      if (existingBlog.url) {
+        // Delete the existing file if it exists
+        await fileLib.delete(existingBlog.url);
+      }
+      // Add the new URL to the update data
+      updateData.url = req.files.url[0]?.filename;
     }
+
+    // Update or replace the favicon
     if (req.files.favicon) {
-      updateData.favicon = req.files.favicon[0]?.filename || updateData.favicon;
+      if (existingBlog.favicon) {
+        // Delete the existing file if it exists
+        await fileLib.delete(existingBlog.favicon);
+      }
+      // Add the new favicon to the update data
+      updateData.favicon = req.files.favicon[0]?.filename;
     }
   }
 
-  // If social media updates are provided, merge them with the existing social media object
+  // Merge social media data if provided
   if (req.body.social_media) {
     updateData.social_media = {
-      ...updateData.social_media, // Existing social media data
-      ...req.body.social_media, // New social media data from the request
+      ...existingBlog.social_media, // Existing social media data
+      ...req.body.social_media,    // New social media data
     };
   }
-  const deletedBlog = await Blogs.findById(id);
-  console.log(deletedBlog);
-  if (deletedBlog.url) {
-    await fileLib.delete(deletedBlog.url);
-  }
-  if (deletedBlog.favicon) {
-    await fileLib.delete(deletedBlog.favicon);
-  }
 
-  // Find and update the blog by ID
+  console.log("Update data:", updateData);
+
+  // Update the blog document
   const updatedBlog = await Blogs.findByIdAndUpdate(
     id,
     { $set: updateData },
-    {
-      new: true,
-    }
+    { new: true } // Return the updated document
   );
 
   if (!updatedBlog) {
@@ -126,11 +172,20 @@ const updateBlog = async (req, res) => {
     });
   }
 
-  successResponse(res, {
+  // Respond with success
+  return successResponse(res, {
     statusCode: 200,
     message: "Blog successfully updated",
     payload: { updatedBlog },
   });
 };
 
-module.exports = { createBlog, getAllBlogs, deleteBlog, updateBlog };
+
+
+module.exports = {
+  createBlog,
+  getBlogById,
+  getAllBlogs,
+  deleteBlog,
+  updateBlog,
+};

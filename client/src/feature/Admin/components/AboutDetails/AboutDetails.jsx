@@ -214,17 +214,20 @@ const AboutDetails = () => {
         <p>Loading...</p>
       ) : (
         <>
-          <div>
+          <div className="lg:p-5">
             {profile.map((item) => (
-              <div key={item._id} className="border">
-                <div className="flex justify-between">
+              <div key={item._id} className="">
+                <div className="flex flex-wrap 
+                gap-5 justify-between">
                   <div className="h-40">
                     <img
                       src={`${Api.defaults.baseURL}/uploads/${item?.url}`}
-                      crossOrigin="anonymous"
+                      // crossOrigin="anonymous"
                       alt={item?.name}
                       loading="lazy"
-                      className="h-40 object-cover transition-all duration-300 rounded group-hover:scale-110"
+                      className="h-40 object-cover 
+                      transition-all duration-300 w-full
+                      rounded group-hover:scale-110"
                     />
                   </div>
                   <div className="p-2">
@@ -243,7 +246,7 @@ const AboutDetails = () => {
                     className="md:mb-4 text-black"
                     dangerouslySetInnerHTML={{ __html: item?.desc }}
                   ></div>
-                  <h1 className="pb-5 font-bold text-2xl underline">My services</h1>
+                  <h1 className="pb-5 pt-5 font-bold text-2xl underline">My services</h1>
                   <div className="pb-10 pt-5 max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-10">
                     {item.services.map((service, i) => (
                       <div

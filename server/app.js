@@ -73,6 +73,7 @@ app.get("/", (req, res) => {
 
 // Define API Routes
 const api = process.env.BASE_URL_V1;
+
 console.log("API Base URL:", api); // Debugging log for base URL
 app.use(api, apiRoute);
 

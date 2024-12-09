@@ -125,21 +125,26 @@ const Appointment = () => {
   return (
     <div id="appointment">
       <Container>
-        <Title>Book Your Appointment</Title>
-        <div className="py-20 grid grid-cols-1 md:grid-cols-2 gap-10">
+        <div data-aos="fade-in" data-aos-delay="300">
+          <Title>Book Your Appointment</Title>
+        </div>
+
+        <div className="py-20 grid grid-cols-1 lg:grid-cols-2 gap-10">
           <div className="grid grid-cols-1 md:grid-cols-1 gap-10">
             <div
-              className="p-[20px]  text-white"
+              className="p- [20px]  text-white"
               style={{
-                backgroundImage: `url(${img1})`,
+                // backgroundImage: `url(${img1})`,
                 backgroundPosition: "center center",
                 backgroundRepeat: "no-repeat",
                 backgroundSize: "cover",
               }}
             >
               <h3
+                data-aos="fade-in"
+                data-aos-delay="200"
                 className="pb-5 underline
-               font-bold text-center text-2xl text-white"
+               font-bold text-center text-2xl text-black"
               >
                 Timing
               </h3>
@@ -148,7 +153,9 @@ const Appointment = () => {
                 {allData.map((chamber, i) => (
                   <div
                     key={i}
-                    className="text-black px-5 bg-white rounded shadow-2xl p-2 border mb-4"
+                    data-aos="fade-in"
+                    data-aos-delay={i * 100}
+                    className="text-black px-5  bg-white rounded shadow-2xl p-2 border mb-4"
                   >
                     {/* Display the chamber name */}
                     <h2 className="font-bold text-lg underline text-center">
@@ -175,9 +182,10 @@ const Appointment = () => {
               </div>
             </div>
 
-            <div className="text-center grid grid-cols-1 md:grid-cols-4 gap-5  bg-white lg:p-10 p-5 shadow-2xl">
+            <div data-aos="fade-up"
+                data-aos-delay="200" className="text-center grid grid-cols-1 md:grid-cols-4 gap-5  bg-white lg:p-10 p-5 shadow-2xl">
               {allData.map((item, i) => (
-                <div key={i}>
+                <div key={i} >
                   <div className="hover:bg-primary lg:size-16 size-10 flex justify-center items-center rounded-full mx-auto group border-primary border duration-500">
                     <Icon
                       type={"map"}
@@ -188,14 +196,20 @@ const Appointment = () => {
                     Chamber address
                   </h2>
                   <p className="text-gray-500 text-sm">
-                  {item.address || "Address not available"}
+                    {item.address || "Address not available"}
                   </p>
                 </div>
               ))}
             </div>
           </div>
-          <div className="px-10 py-2  shadow-2xl">
-            <h1 className="capitalize pb-2">Select chamber</h1>
+          <div data-aos="fade-up"
+                data-aos-delay="300" className="px-10 py-5  shadow-2xl">
+            <h1 className="capitalize text-2xl underline text-center  font-bold pb-5">
+              Booking Form
+            </h1>
+            <h1 className="capitalize pb-2 text-md font-bold">
+              Select chamber
+            </h1>
             <div className="flex flex-wrap gap-3 ">
               {allData.map((chamber, i) => (
                 <button
