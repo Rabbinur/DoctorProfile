@@ -42,12 +42,12 @@ const Sidebar = ({
       icon: <BiDetail size={25} />,
       path: "/admin/about",
     },
-    // {
-    //   id: "contact",
-    //   label: "Contact",
-    //   icon: <MdContactPhone size={25} />,
-    //   path: "/admin/contact",
-    // },
+    {
+      id: "chamber",
+      label: "Chamber",
+      icon: <MdContactPhone size={25} />,
+      path: "/admin/chamber",
+    },
     {
       id: "reviews",
       label: "Reviews",

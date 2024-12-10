@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 
 const Blogs = () => {
   const type = "blog";
-
   const [page, setPage] = useState(1);
   const [limit] = useState(10);
 
@@ -16,8 +15,26 @@ const Blogs = () => {
     queryFn: () => getAllBlogs({ type, page, limit }),
     keepPreviousData: true,
   });
+
   const blogs = allData?.blogs || [];
-  console.log(blogs);
+
+  const truncateText = (text, wordLimit) => {
+    const words = text.split(" ");
+    if (words.length > wordLimit) {
+      return words.slice(0, wordLimit).join(" ") + "...";
+    }
+    return text;
+  };
+
+  const [expanded, setExpanded] = useState({});
+
+  const toggleReadMore = (index) => {
+    setExpanded((prev) => ({
+      ...prev,
+      [index]: !prev[index],
+    }));
+  };
+
   return (
     <div id="blog">
       <section className="pt-20 pb-10 lg:pt-[120px] lg:pb-20 bg-white dark:bg-dark">
@@ -28,13 +45,12 @@ const Blogs = () => {
                 <div data-aos="fade-in" data-aos-delay="200">
                   <Title>Blogs</Title>
                 </div>
-
                 <p
                   data-aos="fade-in"
                   data-aos-delay="200"
                   className="text-base pt-10 text-body-color dark:text-dark-6"
                 >
-                  Here is the some blogs post of health
+                  Here are some blog posts about health.
                 </p>
               </div>
             </div>
@@ -51,8 +67,7 @@ const Blogs = () => {
                   <div className="mb-8 overflow-hidden rounded">
                     <img
                       src={`${Api.defaults.baseURL}/uploads/${item?.url}`}
-                      // crossOrigin="anonymous"
-                      alt="image"
+                      alt="Blog thumbnail"
                       className="w-full"
                     />
                   </div>
@@ -73,8 +88,16 @@ const Blogs = () => {
                       </Link>
                     </h3>
                     <p className="text-base text-body-color dark:text-dark-6">
-                      {item?.desc}
+                      {expanded[i]
+                        ? item?.desc
+                        : truncateText(item?.desc, 50)}
                     </p>
+                    <button
+                      onClick={() => toggleReadMore(i)}
+                      className="text-primary underline text-sm mt-2"
+                    >
+                      {expanded[i] ? "Read Less" : "Read More"}
+                    </button>
                   </div>
                 </div>
               </div>

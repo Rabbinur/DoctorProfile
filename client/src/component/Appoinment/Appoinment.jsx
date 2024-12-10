@@ -149,43 +149,67 @@ const Appointment = () => {
                 Timing
               </h3>
 
-              <div className="grid grid-cols-2 gap-3  ">
+        
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 {allData.map((chamber, i) => (
                   <div
                     key={i}
-                    data-aos="fade-in"
-                    data-aos-delay={i * 100}
-                    className="text-black px-5  bg-white rounded shadow-2xl p-2 border mb-4"
+                    data-aos="fade-up"
+                    data-aos-delay={i * 150}
+                    className="relative bg-gradient-to-r from-blue-50 to-white rounded-lg shadow-md overflow-hidden transition-transform transform hover:scale-105"
                   >
-                    {/* Display the chamber name */}
-                    <h2 className="font-bold text-lg underline text-center">
-                      {chamber.chamber}
-                    </h2>
+                    {/* Chamber Header */}
+                    <div className="p-4 bg-blue-500 text-white text-center">
+                      <h2 className="font-bold text-lg uppercase tracking-wider">
+                        {chamber.chamber}
+                      </h2>
+                    </div>
 
-                    {/* Iterate through the schedule to display day and time */}
-                    {chamber.schedule.map((scheduleItem, index) => (
-                      <div key={index} className="mt-2">
-                        <p className="font-semibold underline pb-2">
-                          {scheduleItem.day}
-                        </p>
-                        <ul className="list-disc ml-4">
-                          {scheduleItem.time.map((timeSlot, idx) => (
-                            <li key={idx} className="text-sm">
-                              {timeSlot}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    ))}
+                    {/* Chamber Schedule */}
+                    <div className="p-5">
+                      {chamber.schedule.map((scheduleItem, index) => (
+                        <div key={index} className="mb-4">
+                          <div className="flex items-center space-x-2 mb-2">
+                            <span className="inline-block w-3 h-3 bg-blue-500 rounded-full"></span>
+                            <p className="font-semibold text-gray-700 underline">
+                              {scheduleItem.day}
+                            </p>
+                          </div>
+                          <ul className="list-inside list-disc ml-4 text-gray-600">
+                            {scheduleItem.time.map((timeSlot, idx) => (
+                              <li key={idx} className="text-sm">
+                                {timeSlot}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
+                    </div>
+                    <div className=" py-4 text-center text-black ">
+                  <h1 className="font-bold flex gap-2 justify-center text-[18px]">
+                  <Icon
+                      type={"map"}
+                      className="text-2xl group-hover:text-white text-primary"
+                    /> Chamber Address
+                  </h1>
+                  <p className="">{chamber?.address}</p>
+                </div>
+
+                    {/* Decorative Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent to-blue-100 opacity-20 pointer-events-none"></div>
                   </div>
                 ))}
               </div>
             </div>
-
-            <div data-aos="fade-up"
-                data-aos-delay="200" className="text-center grid grid-cols-1 md:grid-cols-4 gap-5  bg-white lg:p-10 p-5 shadow-2xl">
+{/* 
+            <div
+              data-aos="fade-up"
+              data-aos-delay="200"
+              className="text-center grid grid-cols-1 md:grid-cols-4 gap-5  bg-white lg:p-10 p-5 shadow-2xl"
+            >
               {allData.map((item, i) => (
-                <div key={i} >
+                <div key={i}>
                   <div className="hover:bg-primary lg:size-16 size-10 flex justify-center items-center rounded-full mx-auto group border-primary border duration-500">
                     <Icon
                       type={"map"}
@@ -200,10 +224,13 @@ const Appointment = () => {
                   </p>
                 </div>
               ))}
-            </div>
+            </div> */}
           </div>
-          <div data-aos="fade-up"
-                data-aos-delay="300" className="px-10 py-5  shadow-2xl">
+          <div
+            data-aos="fade-up"
+            data-aos-delay="300"
+            className="px-10 py-5  shadow-2xl"
+          >
             <h1 className="capitalize text-2xl underline text-center  font-bold pb-5">
               Booking Form
             </h1>

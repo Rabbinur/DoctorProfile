@@ -15,6 +15,8 @@ import AdminRoute from "./PrivateRoutes";
 import AboutFormData from "../feature/Admin/components/AboutDetails/AboutFromData";
 import SiteDetails from "../feature/Admin/components/Site/SiteDetails";
 import EditFromData from "../feature/Admin/components/Site/editFromData";
+import ChamberDetails from "../feature/Admin/components/chamberDetails/ChamberDetails";
+import Chamber from "../feature/Admin/pages/Chamber/Chamber";
 
 export const router = createBrowserRouter([
   {
@@ -74,6 +76,10 @@ export const router = createBrowserRouter([
       {
         path: "/admin/site",
         element: <SiteDetails />,
+      },
+      {
+        path: "/admin/chamber",
+        element: <Chamber />,
       },
       {
         path: "/admin/site/:id",
