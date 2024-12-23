@@ -20,7 +20,7 @@ const ReviewDetails = () => {
   const [currentAppointment, setCurrentAppointment] = useState(null);
   const debouncedSearchParams = useDebounce(searchParams, 500);
   const { status } = debouncedSearchParams;
- console.log(searchParams.status);
+//  console.log(searchParams.status);
   // Fetch review data
   const { data: allData = [], isFetching } = useQuery({
     queryKey: ["review", status],

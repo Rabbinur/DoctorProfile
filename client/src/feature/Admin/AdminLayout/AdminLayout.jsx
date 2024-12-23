@@ -28,8 +28,8 @@ const AdminLayout = () => {
       </div>
 
       {/* Main content */}
-      <div className="flex flex-col  h-screen flex-1 overflow-y-auto">
-        <div className="flex sticky top-0 items-center justify-between h-16 bg-white border-b border-gray-200">
+      <div className="flex flex-col   h-screen flex-1 overflow-y-auto">
+        <div className="flex sticky top-[9999] items-center justify-between h-16 bg-white border-b border-gray-200">
           <div className="flex items-center px-4">
             <button
               onClick={() => setIsSidebarOpen(!isSidebarOpen)}

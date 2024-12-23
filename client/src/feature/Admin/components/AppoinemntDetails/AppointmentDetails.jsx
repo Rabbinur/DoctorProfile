@@ -76,7 +76,7 @@ const AppointmentDetails = () => {
 
   const handleModalSubmit = () => {
     const { _id, status } = currentAppointment;
-    console.log({ _id, status });
+    // console.log({ _id, status });
     updateMutation.mutate({
       id: _id,
       status: status,
@@ -92,7 +92,7 @@ const AppointmentDetails = () => {
     }));
   };
 
- console.log(appointments);
+//  console.log(appointments);
 
   // Filter appointments to show only today's and the latest data
  

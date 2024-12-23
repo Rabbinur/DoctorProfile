@@ -12,7 +12,7 @@ const EditAboutFormData = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [details, setDetails] = useState(null);
- console.log(id);
+//  console.log(id);
   // Fetch the data for the specific ID
   const { data, isFetching } = useQuery({
     queryKey: ["about", id],
@@ -22,7 +22,7 @@ const EditAboutFormData = () => {
     },
     keepPreviousData: true,
   });
-console.log(data)
+// console.log(data)
   const updateMutation = useMutation({
     mutationFn: ({ id, data }) => updateAbout(id, data),
     onSuccess: (data) => {

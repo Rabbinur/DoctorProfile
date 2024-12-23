@@ -118,14 +118,14 @@ const Calendar = () => {
 
     // If all validation passes, show a success message
     toast.success("Booking saved successfully");
-    console.log("Booking submitted for:", {
-      selectedDate,
-      selectedTime,
-      name,
-      contact,
-      email,
-      reason,
-    });
+    // console.log("Booking submitted for:", {
+    //   selectedDate,
+    //   selectedTime,
+    //   name,
+    //   contact,
+    //   email,
+    //   reason,
+    // });
 
     closeModal();
   };

@@ -1,6 +1,11 @@
-import { useQuery } from "@tanstack/react-query";
-import { getChamberData } from "../../../../hooks/usefetch";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {  deleteChamberById, getChamberData } from "../../../../hooks/usefetch";
 import Icon from "../../../../component/ui/Icon/Icon";
+import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import { MdDeleteForever } from "react-icons/md";
+import { CiEdit } from "react-icons/ci";
+
 
 const ChamberDetails = () => {
   // Fetch chamber data
@@ -8,14 +13,19 @@ const ChamberDetails = () => {
     queryKey: ["chamber"],
     queryFn: getChamberData,
   });
-
+  const queryClient = useQueryClient();
   const allData = data || [];
-  console.log(allData);
+  // console.log(allData);
+  const deleteMutation = useMutation({
+    mutationFn: (id) => deleteChamberById(id),
+    onSuccess: (id) => {
+      queryClient.invalidateQueries(["chamber"]);
+      toast.success("Chamber deleted successfully");
+    },
+  });
   return (
     <div>
-      <div
-        className=""
-      >
+      <div className="">
         <div
           className="p- [20px]  text-white"
           style={{
@@ -34,14 +44,19 @@ const ChamberDetails = () => {
             Timing
           </h3>
 
-          <div className="grid grid-cols-1
-           lg:grid-cols-2 gap-6">
+          <div
+            className="grid grid-cols-1
+           lg:grid-cols-2 gap-6"
+          >
             {allData.map((chamber, i) => (
               <div
                 key={i}
                 data-aos="fade-up"
                 data-aos-delay={i * 150}
-                className="relative bg-gradient-to-r from-blue-50 to-white rounded-lg shadow-md overflow-hidden transition-transform transform hover:scale-105"
+                className="relative bg-gradient-to-r
+                 from-blue-50 to-white rounded-lg 
+                 shadow-md overflow-hidden transition-transform 
+                 transform hover:scale-105"
               >
                 {/* Chamber Header */}
                 <div className="p-4 bg-blue-500 text-white text-center">
@@ -71,12 +86,24 @@ const ChamberDetails = () => {
                   ))}
                 </div>
                 <div className=" py-4 text-center text-black ">
-                  <h1 className="font-bold text-[18px]">
-                    Chamber Address
-                  </h1>
+                  <h1 className="font-bold text-[18px]">Chamber Address</h1>
                   <p className="">{chamber?.address}</p>
                 </div>
-
+                <div className="text-black flex justify-around mx-auto w-52 py-5">
+                  <Link to={`/admin/chamber/${chamber?._id}`}>
+                    <CiEdit size={30} className="text-primary" /> Edit{" "}
+                  </Link>
+                  <button
+                    className="border border-gray-200 p-1 bg-white -400"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      deleteMutation.mutate(chamber?._id);
+                    }}
+                    disabled={deleteMutation.isLoading}
+                  >
+                    <MdDeleteForever size={30} className="text-red-500" />
+                  </button>
+                </div>
                 {/* Decorative Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent to-blue-100 opacity-20 pointer-events-none"></div>
               </div>

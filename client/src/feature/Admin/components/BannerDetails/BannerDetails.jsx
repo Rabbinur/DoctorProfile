@@ -18,7 +18,7 @@ const BannerDetails = () => {
     keepPreviousData: true,
   });
   const banner = allData?.blogs || [];
-  console.log(banner);
+  // console.log(banner);
   const deleteMutation = useMutation({
     mutationFn: (id) => deleteBlog(id),
     onSuccess: (id) => {

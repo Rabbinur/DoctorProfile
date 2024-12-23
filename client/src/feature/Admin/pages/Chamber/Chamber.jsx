@@ -42,7 +42,7 @@ const Chamber = () => {
 
             {selectedItem === "details" && <ChamberDetails />}
             {selectedItem === "addNew" && (
-              <ChamberFromData setSelectedItem={setSelectedItem} />
+              <ChamberFromData selectedId={null} setSelectedItem={setSelectedItem} />
             )}
           </div>
         </div>

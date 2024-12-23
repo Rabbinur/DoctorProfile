@@ -74,7 +74,7 @@ const Appointment = () => {
       date: selectedDate,
       time: selectedTime,
     };
-    console.log(updatedData);
+    // console.log(updatedData);
     if (
       !name ||
       !mobile ||
@@ -99,7 +99,7 @@ const Appointment = () => {
       const response = await Api.post("/appointment/create", {
         updatedData,
       });
-      console.log(response);
+      // console.log(response);
       if (response.data.success === true) {
         toast.success(response.data.message);
         // Reset form after successful submission

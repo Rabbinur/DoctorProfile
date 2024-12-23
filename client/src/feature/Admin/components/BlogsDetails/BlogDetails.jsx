@@ -6,6 +6,7 @@ import BlogFormData from "./BlogFromData";
 import { Api } from "../../../../utils/Api";
 import { CiEdit } from "react-icons/ci";
 import { MdDeleteForever } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 const BlogDetails = () => {
   const queryClient = useQueryClient();
@@ -71,7 +72,7 @@ const BlogDetails = () => {
                     // crossOrigin="anonymous"
                     alt={item?.name}
                     loading="lazy"
-                    className=" h-40 object-cover transition-all 
+                    className=" w-full h-40 object-cover transition-all 
                       duration-300
                         rounded group-hover:scale-110"
                   />
@@ -98,6 +99,7 @@ const BlogDetails = () => {
                     >
                       <MdDeleteForever size={30} className="text-red-500" />
                     </button>
+                    <Link to=""></Link>
                   </div>
                 </div>
               </div>

@@ -14,7 +14,7 @@ export const fetchAllBanner = async () => {
 
 export const getDashboardData = async () => {
   const response = await Api.get("/review/dash");
-  console.log(response.data.payload);
+  // console.log(response.data.payload);
   return response.data.payload;
 };
 
@@ -61,6 +61,21 @@ export const getChamberData = async () => {
   return response.data.payload.chamber;
 };
 
+export const createChambar = async (formData) => {
+  const response = await Api.post(`/chamber/create`, formData);
+  // console.log(response.data.payload.chamber);
+  return response.data.payload.chamber;
+};
+export const updateChamber = async (id, formData) => {
+  const response = await Api.patch(`/chamber/${id}`, formData);
+  // console.log(response.data.payload.chamber);
+  return response.data.payload.chamber;
+};
+export const deleteChamberById=async(id)=>{
+  const response = await Api.delete(`/chamber/${id}`);
+
+  return response.data.payload;
+}
 // review
 
 export const createReview = async (formData) => {
@@ -74,7 +89,7 @@ export const getReviewData = async ({ status }) => {
   const queryString = buildQueryParams(queryParams);
   const response = await Api.get(`/review/all?${queryString}`);
 
-console.log(response.data); 
+// console.log(response.data); 
  return response.data.payload.data;
 };
 export const deleteReviewData = async (id) => {
@@ -108,12 +123,12 @@ export const getAllBlogs = async ({ type, page = 1, limit = 10 })=>{
   };
   const queryString = buildQueryParams(queryParams);
   const response = await Api.get(`/blog/all?${queryString}`);
-  console.log(response);
+  // console.log(response);
   return response.data.payload;
 }
 export const CreateBlog = async (formData)=>{
   const response = await Api.post(`/blog/create`, formData);
-  console.log(response);
+  // console.log(response);
   return response.data.payload.savedBlog;
 }
 
@@ -141,10 +156,10 @@ export const fetchAboutData = async () => {
   }
 };
 export const fetchAboutDataId = async (id) => {
-  console.log(id);
+  // console.log(id);
   try {
     const res = await Api.get(`/profile/${id}`);
-    console.log(res);
+    // console.log(res);
     return res.data.payload.profile;
   } catch (error) {
     console.error(`Failed to fetch profile data`);

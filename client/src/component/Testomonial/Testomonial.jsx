@@ -31,7 +31,7 @@ const Testimonial = () => {
   });
 
   const feedback = data || [];
-  console.log(feedback);
+  // console.log(feedback);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     const newValue = name === "rating" ? Number(value) : value;
@@ -79,7 +79,7 @@ const Testimonial = () => {
     if (file) {
       formDataToSend.append("url", file);
     }
-    console.log("Form Data:", formDataToSend);
+    // console.log("Form Data:", formDataToSend);
     addMutation.mutate(formDataToSend);
     // toast.success("Successfully submitted your review");
     // setIsModalOpen(false);
@@ -108,7 +108,7 @@ const Testimonial = () => {
             slidesPerView={1}
           >
             {feedback.map((item, i) => {
-              console.log(item.url);
+              // console.log(item.url);
               return (
                 <SwiperSlide key={i} data-aos="fade-in"
                 data-aos-delay="300">

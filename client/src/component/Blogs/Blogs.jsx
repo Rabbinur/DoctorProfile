@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Title from "../ui/Title/Title";
 import { useQuery } from "@tanstack/react-query";
 import { getAllBlogs } from "../../hooks/usefetch";
@@ -9,6 +9,7 @@ const Blogs = () => {
   const type = "blog";
   const [page, setPage] = useState(1);
   const [limit] = useState(10);
+  const [modalData, setModalData] = useState(null);
 
   const { data: allData = {}, isFetching } = useQuery({
     queryKey: ["blog", type, limit, page],
@@ -26,13 +27,12 @@ const Blogs = () => {
     return text;
   };
 
-  const [expanded, setExpanded] = useState({});
+  const openModal = (blog) => {
+    setModalData(blog);
+  };
 
-  const toggleReadMore = (index) => {
-    setExpanded((prev) => ({
-      ...prev,
-      [index]: !prev[index],
-    }));
+  const closeModal = () => {
+    setModalData(null);
   };
 
   return (
@@ -55,16 +55,16 @@ const Blogs = () => {
               </div>
             </div>
           </div>
-          <div className="flex flex-wrap gap-10 px-2">
+          <div className="fl ex fl ex -wrap grid grid-cols-1 lg:grid-cols-3 gap-10 px-2 lg:px-2">
             {blogs.map((item, i) => (
               <div
                 key={i}
                 data-aos="fade-in"
                 data-aos-delay={i * 100}
-                className="w-full px-4 md:w-1/2 shadow-2xl lg:w-1/3"
+                className="w-full px-4  shadow-2xl lg:w- 1/3"
               >
                 <div className="w-full mb-10">
-                  <div className="mb-8 overflow-hidden rounded">
+                  <div className="mb-5 h-52 overflow-hidden rounded">
                     <img
                       src={`${Api.defaults.baseURL}/uploads/${item?.url}`}
                       alt="Blog thumbnail"
@@ -79,25 +79,20 @@ const Blogs = () => {
                         year: "numeric",
                       })}
                     </span>
-                    <h3>
-                      <Link
-                        to=""
-                        className="inline-block mb-4 text-xl font-semibold text-dark dark:text-white hover:text-primary sm:text-2xl lg:text-xl xl:text-2xl"
-                      >
-                        {item.title}
-                      </Link>
+                    <h3 className="mb-4 text-lg  font-semibold text-dark dark:text-white sm:text-2xl lg:text-xl xl:text-2xl">
+                      {truncateText(item.title,8)}...
                     </h3>
                     <p className="text-base text-body-color dark:text-dark-6">
-                      {expanded[i]
-                        ? item?.desc
-                        : truncateText(item?.desc, 50)}
+                      {truncateText(item?.desc, 20)}
                     </p>
-                    <button
-                      onClick={() => toggleReadMore(i)}
-                      className="text-primary underline text-sm mt-2"
-                    >
-                      {expanded[i] ? "Read Less" : "Read More"}
-                    </button>
+                    {item?.desc.split(" ").length > 40 && (
+                      <button
+                        onClick={() => openModal(item)}
+                        className="text-primary underline text-sm mt-2"
+                      >
+                        Read More
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>
@@ -105,6 +100,45 @@ const Blogs = () => {
           </div>
         </div>
       </section>
+
+      {/* Modal */}
+      {modalData && (
+  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="relative w-full max-w-3xl p-8 bg-white rounded-lg shadow-2xl">
+      {/* Close Button */}
+      <button
+        onClick={closeModal}
+        className="absolute top-4 right-4 bg-gray-200 w-10 h-10 text-gray-700 rounded-full text-xl flex items-center justify-center hover:bg-gray-300"
+      >
+        ✕
+      </button>
+
+      {/* Modal Content */}
+      <div className="">
+        {/* Image Section */}
+        <div className=" w-full">
+          <img
+            src={`${Api.defaults.baseURL}/uploads/${modalData?.url}`}
+            alt={`${modalData?.title}`}
+            className="w-full h-64 object-cover rounded-lg"
+          />
+        </div>
+
+        {/* Text Content Section */}
+        <div className=" w-full pt-5">
+          <h2 className="text-xl font-semibold text-gray-800 mb-3">
+            {modalData?.title}
+          </h2>
+          <div className="text-gray-600 
+          text-normal leading-relaxed overflow-y-scroll h-48 p-2 border border-gray-200 rounded-lg">
+            {modalData?.desc}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+)}
+
     </div>
   );
 };

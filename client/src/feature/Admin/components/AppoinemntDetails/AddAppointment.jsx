@@ -39,7 +39,7 @@ const AddAppointment = () => {
   const handleSubmit = async () => {
     try {
       const response = await axios.post('http://localhost:5000/add-holiday', holidayData);
-      console.log('Response:', response.data);
+      // console.log('Response:', response.data);
       alert('Data saved successfully!');
     } catch (error) {
       console.error('Error saving data:', error);

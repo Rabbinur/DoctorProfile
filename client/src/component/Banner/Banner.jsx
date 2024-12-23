@@ -32,7 +32,7 @@ const Banner = () => {
     keepPreviousData: true,
   });
   const banners = allData?.blogs || [];
-console.log(banners);
+// console.log(banners);
   return (
     <div id="home" className=" ">
       <div className="">

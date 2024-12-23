@@ -1,13 +1,75 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { createChambar, getChamberData, updateChamber } from "../../../../hooks/usefetch";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { toast } from "react-toastify";
 
-const ChamberForm = ({ initialData = null, onSubmit }) => {
-  const [formData, setFormData] = useState(
-    initialData || {
-      chamber: "",
-      address: "",
-      schedule: [{ day: "", time: [""] }],
+const ChamberForm = ({ selectedId, setSelectedItem }) => {
+  const queryClient = useQueryClient();
+
+  // Fetch all chamber data
+  const { data, isFetching } = useQuery({
+    queryKey: ["chamber"],
+    queryFn: getChamberData,
+  });
+
+  const allData = data || [];
+
+  // Initialize form data
+  const [formData, setFormData] = useState({
+    chamber: "",
+    address: "",
+    schedule: [{ day: "", time: [""] }],
+  });
+
+  // Set formData for editing when selectedId changes
+  useEffect(() => {
+    if (selectedId) {
+      const chamberToEdit = allData.find((item) => item._id === selectedId);
+      if (chamberToEdit) {
+        setFormData(chamberToEdit);
+      }
+    } else {
+      setFormData({
+        chamber: "",
+        address: "",
+        schedule: [{ day: "", time: [""] }],
+      });
     }
-  );
+  }, [selectedId]);
+
+  // Create mutation
+  const addMutation = useMutation({
+    mutationFn: (data) => createChambar(data),
+    onSuccess: () => {
+      setFormData({
+        chamber: "",
+        address: "",
+        schedule: [{ day: "", time: [""] }],
+      });
+      queryClient.invalidateQueries(["chamber"]);
+      toast.success("Chamber created successfully");
+      setSelectedItem("details");
+    },
+    onError: (error) => {
+      const errorMessage = error.response?.data?.message || "Failed to create chamber";
+      toast.error(errorMessage);
+    },
+  });
+  
+  // Edit mutation
+  const editMutation = useMutation({
+    mutationFn: ({ id, data }) => updateChamber(id, data),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["chamber"]);
+      toast.success("Chamber updated successfully");
+    
+    },
+    onError: (error) => {
+      console.error("Error Details:", error);
+      const errorMessage = error.response?.data?.message || "Failed to update chamber";
+      toast.error(errorMessage);
+    },
+  });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -46,13 +108,19 @@ const ChamberForm = ({ initialData = null, onSubmit }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(formData);
+    // console.log(formData);
+
+    if (selectedId) {
+      editMutation.mutate({ id: selectedId, data: formData });
+    } else {
+      addMutation.mutate(formData);
+    }
   };
 
   return (
     <div className="max-w-4xl mx-auto mt-10 bg-white shadow-lg rounded-lg p-8">
       <h2 className="text-2xl font-bold text-center mb-6">
-        {initialData ? "Update Chamber" : "Create Chamber"}
+        {selectedId ? "Update Chamber" : "Create Chamber"}
       </h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
@@ -63,6 +131,7 @@ const ChamberForm = ({ initialData = null, onSubmit }) => {
             type="text"
             id="chamber"
             name="chamber"
+            required
             value={formData.chamber}
             onChange={handleInputChange}
             placeholder="Enter chamber name"
@@ -78,6 +147,7 @@ const ChamberForm = ({ initialData = null, onSubmit }) => {
             type="text"
             id="address"
             name="address"
+            required
             value={formData.address}
             onChange={handleInputChange}
             placeholder="Enter address"
@@ -140,7 +210,7 @@ const ChamberForm = ({ initialData = null, onSubmit }) => {
           type="submit"
           className="w-full py-2 bg-blue-500 text-white rounded hover:bg-blue-700 font-semibold"
         >
-          {initialData ? "Update Chamber" : "Create Chamber"}
+          {selectedId ? "Update Chamber" : "Create Chamber"}
         </button>
       </form>
     </div>

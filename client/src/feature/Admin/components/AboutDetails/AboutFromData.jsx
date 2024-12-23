@@ -10,7 +10,7 @@ const AboutFormData = () => {
  
   const queryClient = useQueryClient();
   const [details, setDetails] = useState(null);
- console.log(id);
+//  console.log(id);
   // Fetch the data for the specific ID
   const { data, isFetching } = useQuery({
     queryKey: ["about", id],
@@ -20,7 +20,7 @@ const AboutFormData = () => {
     },
     keepPreviousData: true,
   });
-console.log(data)
+// console.log(data)
   const [formData, setFormData] = useState({
     name: "",
     designation: "",
@@ -106,7 +106,7 @@ console.log(data)
   });
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form data before submitting:", formData); // Debugging line
+    // console.log("Form data before submitting:", formData); // Debugging line
 
     const data = new FormData();
     data.append("name", formData.name);
@@ -119,7 +119,7 @@ console.log(data)
       data.append("url", file);
     }
          
-    console.log("Form data submitted:", data); // Debugging line
+    // console.log("Form data submitted:", data); // Debugging line
     updateMutation.mutate({ id, data: data });
  
   };
