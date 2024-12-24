@@ -18,6 +18,7 @@ import EditFromData from "../feature/Admin/components/Site/editFromData";
 import ChamberDetails from "../feature/Admin/components/chamberDetails/ChamberDetails";
 import Chamber from "../feature/Admin/pages/Chamber/Chamber";
 import EditChamber from "../feature/Admin/components/chamberDetails/EditChamber";
+import SingleBlog from "../component/Blogs/SingleBlog";
 
 export const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/blog/:id",
+        element: <SingleBlog />,
       },
     ],
   },
